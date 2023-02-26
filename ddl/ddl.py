@@ -1,6 +1,29 @@
 import mysql.connector
 import pandas as pd
 
+def join_csv():
+  fertility_df = pd.read_csv('data/age_specific_fertility_rates.csv', encoding="ISO-8859-1")
+  fertility_df = fertility_df[['country_code', 'year','total_fertility_rate','gross_reproduction_rate','sex_ratio_at_birth']]
+  fertility_df = fertility_df.fillna(0)
+
+  growth_df = pd.read_csv('data/birth_death_growth_rates.csv', encoding="ISO-8859-1")
+  growth_df = growth_df[['country_code', 'year','crude_birth_rate','crude_death_rate','net_migration','net_migration','growth_rate']]
+  growth_df = growth_df.fillna(0)
+
+  population_df = pd.read_csv('data/midyear_population.csv', encoding="ISO-8859-1")
+  population_df = population_df[['country_code', 'year','midyear_population']]
+  population_df = population_df.fillna(0)
+
+  expect_df = pd.read_csv('data/mortality_life_expectancy.csv', encoding="ISO-8859-1")
+  expect_df = expect_df[['country_code', 'year','infant_mortality','infant_mortality_male','infant_mortality_female','life_expectancy','life_expectancy_male','life_expectancy_female']]
+  expect_df = expect_df.fillna(0)
+
+
+  print(expect_df,population_df,growth_df,fertility_df)
+  return
+
+
+
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
@@ -45,4 +68,4 @@ for i,row in countries_df.iterrows():
     # the connection is not autocommitted by default, so we must commit to save our changes
   mydb.commit()
 
-
+join_csv()
