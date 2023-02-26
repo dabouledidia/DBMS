@@ -18,9 +18,13 @@ def join_csv():
   expect_df = expect_df[['country_code', 'year','infant_mortality','infant_mortality_male','infant_mortality_female','life_expectancy','life_expectancy_male','life_expectancy_female']]
   expect_df = expect_df.fillna(0)
 
+  merged_1 = fertility_df.merge(population_df, on=['country_code', 'year'],how='right')
+  merged_2 = growth_df.merge(expect_df, on=['country_code', 'year'],how='left')
 
-  print(expect_df,population_df,growth_df,fertility_df)
-  return
+  merged = merged_2.merge(merged_1, on=['country_code', 'year'],how='right')
+
+  return merged
+
 
 
 
