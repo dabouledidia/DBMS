@@ -7,7 +7,7 @@ def join_csv():
   fertility_df = fertility_df.fillna(0)
 
   growth_df = pd.read_csv('data/birth_death_growth_rates.csv', encoding="ISO-8859-1")
-  growth_df = growth_df[['country_code', 'year','crude_birth_rate','crude_death_rate','net_migration','net_migration','growth_rate']]
+  growth_df = growth_df[['country_code', 'year','crude_birth_rate','crude_death_rate','net_migration','rate_natural_increase','growth_rate']]
   growth_df = growth_df.fillna(0)
 
   population_df = pd.read_csv('data/midyear_population.csv', encoding="ISO-8859-1")
@@ -19,13 +19,15 @@ def join_csv():
   expect_df = expect_df.fillna(0)
 
   merged_1 = fertility_df.merge(population_df, on=['country_code', 'year'],how='right')
-  merged_2 = growth_df.merge(expect_df, on=['country_code', 'year'],how='left')
+  merged_2 = growth_df.merge(expect_df, on=['country_code', 'year'],how='right')
 
   merged = merged_2.merge(merged_1, on=['country_code', 'year'],how='right')
 
+  print(merged_1,merged_2,merged)
+
   return merged
 
-
+join_csv()
 
 
 mydb = mysql.connector.connect(
@@ -54,6 +56,17 @@ countries_table = '''CREATE TABLE Countries(
 
 mycursor.execute(countries_table)
 
+statistics_table = '''CREATE TABLE Statistics(
+                id INT NOT NULL AUTO_INCREMENT,
+                Country VARCHAR(10),
+                Year INT,
+                Indicator VARCHAR(100),
+                Value INT,
+                PRIMARY KEY(id))
+                ENGINE = InnoDB'''
+
+mycursor.execute(statistics_table)
+
 mycursor.execute("SHOW TABLES")
 
 for x in mycursor:
@@ -72,4 +85,21 @@ for i,row in countries_df.iterrows():
     # the connection is not autocommitted by default, so we must commit to save our changes
   mydb.commit()
 
-join_csv()
+df = join_csv()
+df = df.fillna(0)
+
+cols = list(df.columns)
+del cols[0:2]
+
+
+for index,row in df.iterrows():
+  for col in cols:
+    sql = "INSERT INTO Statistics (Country, Year, Indicator, Value) VALUES (%s, %s, %s, %s)"
+    vals = (row[0],row[1],col,row[col])
+
+    mycursor.execute(sql, vals)
+    print(index)
+
+mydb.commit()
+
+print("Done.")
