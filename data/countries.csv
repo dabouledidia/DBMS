@@ -1,6 +1,6 @@
 ISO,ISO3,ISO_Code,FIPS,Display_Name,Official_Name,Capital,Continent,CurrencyCode,CurrencyName,Phone,Region Code,Region Name,Sub-region Code,Sub-region Name,Intermediate Region Code,Intermediate Region Name,Status,Developed or Developing,Small Island Developing States (SIDS),Land Locked Developing Countries (LLDC),Least Developed Countries (LDC),Area_SqKm,Population
 AF,AFG,4,AF,Afghanistan,Afghanistan,Kabul,Asia,AFN,Afghani,93,142,Asia,34,Southern Asia,,,Independent,Developing,,TRUE,TRUE,647500,29121286
-AX,ALA,248,,Aland Islands,Åland Islands,Mariehamn,Europe,EUR,Euro,340,150,Europe,154,Northern Europe,,,Part of FI,Developed,,,,1580,26711
+AX,ALA,248,,Aland Islands,ï¿½land Islands,Mariehamn,Europe,EUR,Euro,340,150,Europe,154,Northern Europe,,,Part of FI,Developed,,,,1580,26711
 AL,ALB,8,AL,Albania,Albania,Tirana,Europe,ALL,Lek,355,150,Europe,39,Southern Europe,,,Independent,Developed,,,,28748,2986952
 DZ,DZA,12,AG,Algeria,Algeria,Algiers,Africa,DZD,Dinar,213,2,Africa,15,Northern Africa,,,Independent,Developing,,,,2381740,34586184
 AS,ASM,16,AQ,American Samoa,American Samoa,Pago Pago,Oceania,USD,Dollar,-683,9,Oceania,61,Polynesia,,,Territory of US,Developing,TRUE,,,199,57881
@@ -52,9 +52,10 @@ CO,COL,170,CO,Colombia,Colombia,Bogota,South America,COP,Peso,57,19,Americas,419
 KM,COM,174,CN,Comoros,Comoros,Moroni,Africa,KMF,Franc,269,2,Africa,202,Sub-Saharan Africa,14,Eastern Africa,Independent,Developing,TRUE,,TRUE,2170,773407
 CK,COK,184,CW,Cook Islands,Cook Islands,Avarua,Oceania,NZD,Dollar,682,9,Oceania,61,Polynesia,,,Associated with NZ,Developing,TRUE,,,240,21388
 CR,CRI,188,CS,Costa Rica,Costa Rica,San Jose,North America,CRC,Colon,506,19,Americas,419,Latin America and the Caribbean,13,Central America,Independent,Developing,,,,51100,4516220
+NM,NAM,516,WA,Namibia,Namibia,Windhoek,Africa,NAD,Dollar,264,2,Africa,202,Sub-Saharan Africa,18,Southern Africa,Independent,Developing,,,,825418,2128471
 HR,HRV,191,HR,Croatia,Croatia,Zagreb,Europe,HRK,Kuna,385,150,Europe,39,Southern Europe,,,Independent,Developed,,,,56542,4284889
 CU,CUB,192,CU,Cuba,Cuba,Havana,North America,CUP,Peso,53,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Independent,Developing,TRUE,,,110860,11423000
-CW,CUW,531,UC,Curacao,Curaçao, Willemstad,North America,ANG,Guilder,599,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Part of NL,Developing,TRUE,,,444,141766
+CW,CUW,531,UC,Curacao,Curaï¿½ao, Willemstad,North America,ANG,Guilder,599,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Part of NL,Developing,TRUE,,,444,141766
 CY,CYP,196,CY,Cyprus,Cyprus,Nicosia,Europe,EUR,Euro,357,142,Asia,145,Western Asia,,,Independent,Developed,,,,9250,1102677
 CZ,CZE,203,EZ,Czechia,Czechia,Prague,Europe,CZK,Koruna,420,150,Europe,151,Eastern Europe,,,Independent,Developed,,,,78866,10476000
 CD,COD,180,CG,Democratic Republic of the Congo,Democratic Republic of the Congo,Kinshasa,Africa,CDF,Franc,243,2,Africa,202,Sub-Saharan Africa,17,Middle Africa,Independent,Developing,,,TRUE,2345410,70916439
@@ -107,7 +108,7 @@ IE,IRL,372,EI,Ireland,Ireland,Dublin,Europe,EUR,Euro,353,150,Europe,154,Northern
 IM,IMN,833,IM,Isle of Man,Isle of Man,Douglas,Europe,GBP,Pound,-1580,150,Europe,154,Northern Europe,,,Crown dependency of GB,Developed,,,,572,75049
 IL,ISR,376,IS,Israel,Israel,Jerusalem,Asia,ILS,Shekel,972,142,Asia,145,Western Asia,,,Independent,Developed,,,,20770,7353985
 IT,ITA,380,IT,Italy,Italy,Rome,Europe,EUR,Euro,39,150,Europe,39,Southern Europe,,,Independent,Developed,,,,301230,60340328
-CI,CIV,384,IV,Ivory Coast,Côte d'Ivoire,Yamoussoukro,Africa,XOF,Franc,225,2,Africa,202,Sub-Saharan Africa,11,Western Africa,Independent,Developing,,,,322460,21058798
+CI,CIV,384,IV,Ivory Coast,Cï¿½te d'Ivoire,Yamoussoukro,Africa,XOF,Franc,225,2,Africa,202,Sub-Saharan Africa,11,Western Africa,Independent,Developing,,,,322460,21058798
 JM,JAM,388,JM,Jamaica,Jamaica,Kingston,North America,JMD,Dollar,-875,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Independent,Developing,TRUE,,,10991,2847232
 JP,JPN,392,JA,Japan,Japan,Tokyo,Asia,JPY,Yen,81,142,Asia,30,Eastern Asia,,,Independent,Developed,,,,377835,127288000
 JE,JEY,832,JE,Jersey,Jersey,Saint Helier,Europe,GBP,Pound,-1490,150,Europe,154,Northern Europe,830,Channel Islands,Crown dependency of GB,Developed,,,,116,90812
@@ -150,7 +151,6 @@ MS,MSR,500,MH,Montserrat,Montserrat,Plymouth,North America,XCD,Dollar,-663,19,Am
 MA,MAR,504,MO,Morocco,Morocco,Rabat,Africa,MAD,Dirham,212,2,Africa,15,Northern Africa,,,Independent,Developing,,,,446550,33848242
 MZ,MOZ,508,MZ,Mozambique,Mozambique,Maputo,Africa,MZN,Metical,258,2,Africa,202,Sub-Saharan Africa,14,Eastern Africa,Independent,Developing,,,TRUE,801590,22061451
 MM,MMR,104,BM,Myanmar,Myanmar,Nay Pyi Taw,Asia,MMK,Kyat,95,142,Asia,35,South-eastern Asia,,,Independent,Developing,,,TRUE,678500,53414374
-NA,NAM,516,WA,Namibia,Namibia,Windhoek,Africa,NAD,Dollar,264,2,Africa,202,Sub-Saharan Africa,18,Southern Africa,Independent,Developing,,,,825418,2128471
 NR,NRU,520,NR,Nauru,Nauru,Yaren,Oceania,AUD,Dollar,674,9,Oceania,57,Micronesia,,,Independent,Developing,TRUE,,,21,10065
 NP,NPL,524,NP,Nepal,Nepal,Kathmandu,Asia,NPR,Rupee,977,142,Asia,34,Southern Asia,,,Independent,Developing,,TRUE,TRUE,140800,28951852
 NL,NLD,528,NL,Netherlands,Netherlands,Amsterdam,Europe,EUR,Euro,31,150,Europe,155,Western Europe,,,Independent,Developed,,,,41526,16645000
@@ -180,11 +180,11 @@ PT,PRT,620,PO,Portugal,Portugal,Lisbon,Europe,EUR,Euro,351,150,Europe,39,Souther
 PR,PRI,630,RQ,Puerto Rico,Puerto Rico,San Juan,North America,USD,Dollar,+1-787 and 1-939,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Commonwealth of US,Developing,TRUE,,,9104,3916632
 QA,QAT,634,QA,Qatar,Qatar,Doha,Asia,QAR,Rial,974,142,Asia,145,Western Asia,,,Independent,Developing,,,,11437,840926
 CG,COG,178,CF,Republic of the Congo,Congo,Brazzaville,Africa,XAF,Franc,242,2,Africa,202,Sub-Saharan Africa,17,Middle Africa,Independent,Developing,,,,342000,3039126
-RE,REU,638,RE,Reunion,Réunion,Saint-Denis,Africa,EUR,Euro,262,2,Africa,202,Sub-Saharan Africa,14,Eastern Africa,Part of FR,Developing,,,,2517,776948
+RE,REU,638,RE,Reunion,Rï¿½union,Saint-Denis,Africa,EUR,Euro,262,2,Africa,202,Sub-Saharan Africa,14,Eastern Africa,Part of FR,Developing,,,,2517,776948
 RO,ROU,642,RO,Romania,Romania,Bucharest,Europe,RON,Leu,40,150,Europe,151,Eastern Europe,,,Independent,Developed,,,,237500,21959278
 RU,RUS,643,RS,Russia,Russian Federation,Moscow,Europe,RUB,Ruble,7,150,Europe,151,Eastern Europe,,,Independent,Developed,,,,17100000,140702000
 RW,RWA,646,RW,Rwanda,Rwanda,Kigali,Africa,RWF,Franc,250,2,Africa,202,Sub-Saharan Africa,14,Eastern Africa,Independent,Developing,,TRUE,TRUE,26338,11055976
-BL,BLM,652,TB,Saint Barthelemy,Saint Barthélemy,Gustavia,North America,EUR,Euro,590,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Part of FR,Developing,,,,21,8450
+BL,BLM,652,TB,Saint Barthelemy,Saint Barthï¿½lemy,Gustavia,North America,EUR,Euro,590,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Part of FR,Developing,,,,21,8450
 SH,SHN,654,SH,Saint Helena,Saint Helena,Jamestown,Africa,SHP,Pound,290,2,Africa,202,Sub-Saharan Africa,11,Western Africa,Territory of GB,Developing,,,,410,7460
 KN,KNA,659,SC,Saint Kitts and Nevis,Saint Kitts and Nevis,Basseterre,North America,XCD,Dollar,-868,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Independent,Developing,TRUE,,,261,51134
 LC,LCA,662,ST,Saint Lucia,Saint Lucia,Castries,North America,XCD,Dollar,-757,19,Americas,419,Latin America and the Caribbean,29,Caribbean,Independent,Developing,TRUE,,,616,160922

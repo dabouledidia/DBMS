@@ -1,39 +1,13 @@
 import mysql.connector
 import pandas as pd
-
-def join_csv():
-  fertility_df = pd.read_csv('data/age_specific_fertility_rates.csv', encoding="ISO-8859-1")
-  fertility_df = fertility_df[['country_code', 'year','total_fertility_rate','gross_reproduction_rate','sex_ratio_at_birth']]
-  fertility_df = fertility_df.fillna(0)
-
-  growth_df = pd.read_csv('data/birth_death_growth_rates.csv', encoding="ISO-8859-1")
-  growth_df = growth_df[['country_code', 'year','crude_birth_rate','crude_death_rate','net_migration','rate_natural_increase','growth_rate']]
-  growth_df = growth_df.fillna(0)
-
-  population_df = pd.read_csv('data/midyear_population.csv', encoding="ISO-8859-1")
-  population_df = population_df[['country_code', 'year','midyear_population']]
-  population_df = population_df.fillna(0)
-
-  expect_df = pd.read_csv('data/mortality_life_expectancy.csv', encoding="ISO-8859-1")
-  expect_df = expect_df[['country_code', 'year','infant_mortality','infant_mortality_male','infant_mortality_female','life_expectancy','life_expectancy_male','life_expectancy_female']]
-  expect_df = expect_df.fillna(0)
-
-  merged_1 = fertility_df.merge(population_df, on=['country_code', 'year'],how='right')
-  merged_2 = growth_df.merge(expect_df, on=['country_code', 'year'],how='right')
-
-  merged = merged_2.merge(merged_1, on=['country_code', 'year'],how='right')
-
-  print(merged_1,merged_2,merged)
-
-  return merged
-
-join_csv()
-
-
+import config
+import time 
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="1234"
+  password="1234",
+  use_unicode=True,
+  charset="utf8"
 )
 
 mycursor = mydb.cursor()
@@ -54,27 +28,22 @@ countries_table = '''CREATE TABLE Countries(
                 PRIMARY KEY(id))
                 ENGINE = InnoDB'''
 
-mycursor.execute(countries_table)
 
 statistics_table = '''CREATE TABLE Statistics(
                 id INT NOT NULL AUTO_INCREMENT,
                 Country VARCHAR(10),
                 Year INT,
                 Indicator VARCHAR(100),
-                Value INT,
+                Value DOUBLE,
                 PRIMARY KEY(id))
                 ENGINE = InnoDB'''
 
+
+mycursor.execute(countries_table)
 mycursor.execute(statistics_table)
 
-mycursor.execute("SHOW TABLES")
 
-for x in mycursor:
-  print(x)
-
-countries_df = pd.read_csv('data/countries.csv', encoding="ISO-8859-1")
-countries_df = countries_df[['ISO', 'Display_Name','Continent','CurrencyName','Area_SqKm','Population']]
-countries_df = countries_df.fillna(0)
+countries_df = config.config_countries_df()
 
 cols = "`,`".join([str(i) for i in countries_df.columns.tolist()])
 
@@ -82,17 +51,22 @@ for i,row in countries_df.iterrows():
   sql = "INSERT INTO `Countries` (`" +cols + "`) VALUES (" + "%s,"*(len(row)-1) + "%s)"
   mycursor.execute(sql, tuple(row))
 
-    # the connection is not autocommitted by default, so we must commit to save our changes
   mydb.commit()
 
-df = join_csv()
-df = df.fillna(0)
+demographics_df = config.join_csv()
+final_income_dfs = config.read_xlsx()
 
-cols = list(df.columns)
+cols = list(demographics_df.columns)
 del cols[0:2]
 
+for income_df in final_income_dfs:
+    for index,row in income_df.iterrows():
+      sql = "INSERT INTO Statistics (Country, Year, Indicator, Value) VALUES (%s, %s, %s, %s)"
+      vals = (row[3],row[0],row[2],row[1])
+      mycursor.execute(sql, vals)
+      print(index)
 
-for index,row in df.iterrows():
+for index,row in demographics_df.iterrows():
   for col in cols:
     sql = "INSERT INTO Statistics (Country, Year, Indicator, Value) VALUES (%s, %s, %s, %s)"
     vals = (row[0],row[1],col,row[col])
