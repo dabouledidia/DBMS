@@ -19,13 +19,14 @@ mycursor.execute("USE dbms")
 
 countries_table = '''CREATE TABLE Countries(
                 id INT NOT NULL AUTO_INCREMENT,
-                ISO VARCHAR(10),
+                FIPS VARCHAR(10),
                 Display_Name VARCHAR(100),
                 Continent VARCHAR(100),
                 CurrencyName VARCHAR(100),
                 Area_SqKm INT,
                 Population INT,
-                PRIMARY KEY(id))
+                PRIMARY KEY(id),
+                INDEX (FIPS))
                 ENGINE = InnoDB'''
 
 
@@ -35,7 +36,8 @@ statistics_table = '''CREATE TABLE Statistics(
                 Year INT,
                 Indicator VARCHAR(100),
                 Value DOUBLE,
-                PRIMARY KEY(id))
+                PRIMARY KEY(id),
+                FOREIGN KEY (`Country`) REFERENCES `Countries` (`FIPS`) ON DELETE CASCADE)
                 ENGINE = InnoDB'''
 
 
@@ -68,12 +70,13 @@ for income_df in final_income_dfs:
 
 for index,row in demographics_df.iterrows():
   for col in cols:
+    print(index,row[0])
+
     sql = "INSERT INTO Statistics (Country, Year, Indicator, Value) VALUES (%s, %s, %s, %s)"
     vals = (row[0],row[1],col,row[col])
 
     mycursor.execute(sql, vals)
-    print(index)
 
 mydb.commit()
-
+mydb.close()
 print("Done.")

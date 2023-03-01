@@ -1,6 +1,7 @@
 ISO,ISO3,ISO_Code,FIPS,Display_Name,Official_Name,Capital,Continent,CurrencyCode,CurrencyName,Phone,Region Code,Region Name,Sub-region Code,Sub-region Name,Intermediate Region Code,Intermediate Region Name,Status,Developed or Developing,Small Island Developing States (SIDS),Land Locked Developing Countries (LLDC),Least Developed Countries (LDC),Area_SqKm,Population
+GZ,GAZ,274,GZ,Gaza Strip,Gaza Strip,Gaza City,Asia,ILS,Israeli new Shekel,970,142,Asia,,,,,,,,,,28748,2986952
 AF,AFG,4,AF,Afghanistan,Afghanistan,Kabul,Asia,AFN,Afghani,93,142,Asia,34,Southern Asia,,,Independent,Developing,,TRUE,TRUE,647500,29121286
-AX,ALA,248,,Aland Islands,�land Islands,Mariehamn,Europe,EUR,Euro,340,150,Europe,154,Northern Europe,,,Part of FI,Developed,,,,1580,26711
+AX,ALA,248,AX,Aland Islands,Aland Islands,Mariehamn,Europe,EUR,Euro,340,150,Europe,154,Northern Europe,,,Part of FI,Developed,,,,1580,26711
 AL,ALB,8,AL,Albania,Albania,Tirana,Europe,ALL,Lek,355,150,Europe,39,Southern Europe,,,Independent,Developed,,,,28748,2986952
 DZ,DZA,12,AG,Algeria,Algeria,Algiers,Africa,DZD,Dinar,213,2,Africa,15,Northern Africa,,,Independent,Developing,,,,2381740,34586184
 AS,ASM,16,AQ,American Samoa,American Samoa,Pago Pago,Oceania,USD,Dollar,-683,9,Oceania,61,Polynesia,,,Territory of US,Developing,TRUE,,,199,57881
@@ -239,7 +240,7 @@ UA,UKR,804,UP,Ukraine,Ukraine,Kyiv,Europe,UAH,Hryvnia,380,150,Europe,151,Eastern
 AE,ARE,784,AE,United Arab Emirates,United Arab Emirates,Abu Dhabi,Asia,AED,Dirham,971,142,Asia,145,Western Asia,,,Independent,Developing,,,,82880,4975593
 GB,GBR,826,UK,United Kingdom,United Kingdom of Great Britain and Northern Ireland,London,Europe,GBP,Pound,44,150,Europe,154,Northern Europe,,,Independent,Developed,,,,244820,62348447
 US,USA,840,US,United States,United States of America,Washington,North America,USD,Dollar,1,19,Americas,21,Northern America,,,Independent,Developed,,,,9629091,310232863
-UM,UMI,581,,United States Minor Outlying Islands,United States Minor Outlying Islands,,Oceania,USD,Dollar ,1,9,Oceania,57,Micronesia,,,Territories of US,Developing,,,,0,0
+UM,UMI,581,UM,United States Minor Outlying Islands,United States Minor Outlying Islands,,Oceania,USD,Dollar ,1,9,Oceania,57,Micronesia,,,Territories of US,Developing,,,,0,0
 UY,URY,858,UY,Uruguay,Uruguay,Montevideo,South America,UYU,Peso,598,19,Americas,419,Latin America and the Caribbean,5,South America,Independent,Developing,,,,176220,3477000
 UZ,UZB,860,UZ,Uzbekistan,Uzbekistan,Tashkent,Asia,UZS,Som,998,142,Asia,143,Central Asia,,,Independent,Developing,,TRUE,,447400,27865738
 VU,VUT,548,NH,Vanuatu,Vanuatu,Port Vila,Oceania,VUV,Vatu,678,9,Oceania,54,Melanesia,,,Independent,Developing,TRUE,,TRUE,12200,221552

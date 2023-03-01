@@ -39,7 +39,7 @@ def read_xlsx():
     lst_income_dfs.append(v)
 
   countries_df = config_countries_df()
-  code_country_df = countries_df[['ISO', 'Display_Name']]
+  code_country_df = countries_df[['FIPS', 'Display_Name']]
   code_country_df.rename(columns={"Display_Name": "Country"}, inplace=True)
   final_income_dfs = []
 
@@ -54,6 +54,6 @@ def read_xlsx():
 
 def config_countries_df():
   countries_df = pd.read_csv('data/countries.csv')
-  countries_df = countries_df[['ISO', 'Display_Name','Continent','CurrencyName','Area_SqKm','Population']]
+  countries_df = countries_df[['FIPS', 'Display_Name','Continent','CurrencyName','Area_SqKm','Population']]
   countries_df = countries_df.fillna(0)
   return countries_df
