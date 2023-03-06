@@ -1,11 +1,30 @@
 package com.example.datavis.entity;
+import jakarta.persistence.*;
 
+import java.beans.ConstructorProperties;
+
+@Entity
+@Table(name = "statistics")
 public class Statistics {
+
+    @Id
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "Country")
     private String FIPS;
+
+    @Column(name = "Year")
     private int Year;
+
+    @Column(name = "Indicator")
     private String Indicator;
+
+    @Column(name = "Value")
     private double Value;
+
+    public Statistics() {
+    }
 
     public Long getId() {
         return id;

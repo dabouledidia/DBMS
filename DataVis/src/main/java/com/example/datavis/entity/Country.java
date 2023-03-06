@@ -1,16 +1,40 @@
 package com.example.datavis.entity;
 
+import jakarta.persistence.*;
+//import javax.persistence.*;
+
+@Entity
+@Table(name = "countries")
+
 public class Country {
+
+    @Id
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "FIPS")
     private String FIPS;
+
+    @Column(name = "Display_Name")
     private String Name;
+
+    @Column(name = "Continent")
     private String Continent;
+
+    @Column(name = "CurrencyName")
     private String Currency;
+
+    @Column(name = "Area_Sqkm")
     private int Area;
+
+    @Column(name = "Population")
     private int Population;
 
     public Integer getArea() {
         return Area;
+    }
+
+    public Country() {
     }
 
     public Country(String FIPS, String name, String continent, String currency, int area, int population) {
