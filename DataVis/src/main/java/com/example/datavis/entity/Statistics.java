@@ -8,8 +8,9 @@ import java.beans.ConstructorProperties;
 public class Statistics {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "Country")
     private String FIPS;
@@ -26,11 +27,11 @@ public class Statistics {
     public Statistics() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -66,7 +67,7 @@ public class Statistics {
         Value = value;
     }
 
-    public Statistics(Long id, String FIPS, int year, String indicator, double value) {
+    public Statistics(Integer id, String FIPS, int year, String indicator, double value) {
         this.id = id;
         this.FIPS = FIPS;
         Year = year;

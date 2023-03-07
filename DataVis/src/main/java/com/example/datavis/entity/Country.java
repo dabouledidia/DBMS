@@ -1,16 +1,15 @@
 package com.example.datavis.entity;
 
 import jakarta.persistence.*;
-//import javax.persistence.*;
 
 @Entity
 @Table(name = "countries")
-
 public class Country {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "FIPS")
     private String FIPS;
@@ -46,7 +45,7 @@ public class Country {
         Population = population;
     }
 
-    public Country(Long id, String FIPS, String name, String continent, String currency, int area, int population) {
+    public Country(Integer id, String FIPS, String name, String continent, String currency, int area, int population) {
         this.id = id;
         this.FIPS = FIPS;
         Name = name;
@@ -68,11 +67,11 @@ public class Country {
         Population = population;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
