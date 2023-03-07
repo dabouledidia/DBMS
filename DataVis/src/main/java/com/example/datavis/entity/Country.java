@@ -20,7 +20,7 @@ public class Country {
     @Column(name = "Continent")
     private String Continent;
 
-    @Column(name = "CurrencyName")
+    @Column(name = "Currency_Name")
     private String Currency;
 
     @Column(name = "Area_Sqkm")
