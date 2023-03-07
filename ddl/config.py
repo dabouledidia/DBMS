@@ -55,5 +55,6 @@ def read_xlsx():
 def config_countries_df():
   countries_df = pd.read_csv('data/countries.csv')
   countries_df = countries_df[['FIPS', 'Display_Name','Continent','CurrencyName','Area_SqKm','Population']]
+  countries_df.rename(columns={"CurrencyName": "Currency_Name"}, inplace=True)
   countries_df = countries_df.fillna(0)
   return countries_df

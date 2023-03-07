@@ -1,7 +1,6 @@
 import mysql.connector
-import pandas as pd
 import config
-import time 
+
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
@@ -22,7 +21,7 @@ countries_table = '''CREATE TABLE Countries(
                 FIPS VARCHAR(10),
                 Display_Name VARCHAR(100),
                 Continent VARCHAR(100),
-                CurrencyName VARCHAR(100),
+                Currency_Name VARCHAR(100),
                 Area_SqKm INT,
                 Population INT,
                 PRIMARY KEY(id),
