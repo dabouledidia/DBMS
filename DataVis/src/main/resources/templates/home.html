@@ -20,8 +20,9 @@
     </style>
 </head>
 <body>
-<h1>Welcome to Country Data Visualizer</h1>
+<h1>Welcome to Demographic and Income Data Visualizer</h1>
 <h3>We have data about the following countries:</h3>
+
 <div id="countries-data">
     <ul class="countries-list">
         <li th:each="country : ${countries}" th:text="${country.name}">Country</li>
@@ -33,16 +34,6 @@
         <li th:each="indicator : ${indicators}" th:text="${indicator.name}">Indicator</li>
     </ul>
 </div>
-
-
-<!--<h1>Welcome to Stats Data Visualizer</h1>-->
-<!--<h3>We have data about the following stats names:</h3>-->
-<!--<div id="stats-data">-->
-<!--    <ul class="stats-list">-->
-<!--        <li th:each="stat : ${stats}" th:text="${stat.indicator}">Stats</li>-->
-<!--    </ul>-->
-<!--</div>-->
-
 
 <a href="/timeline">
     <button type="button" class="btn btn-primary">
