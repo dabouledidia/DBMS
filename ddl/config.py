@@ -39,7 +39,7 @@ def read_xlsx():
     lst_income_dfs.append(v)
 
   countries_df = config_countries_df()
-  code_country_df = countries_df[['FIPS', 'Display_Name']]
+  code_country_df = countries_df[['Code', 'Display_Name']]
   code_country_df.rename(columns={"Display_Name": "Country"}, inplace=True)
   final_income_dfs = []
 
@@ -55,6 +55,19 @@ def read_xlsx():
 def config_countries_df():
   countries_df = pd.read_csv('data/countries.csv')
   countries_df = countries_df[['FIPS', 'Display_Name','Continent','CurrencyName','Area_SqKm','Population']]
+  countries_df.rename(columns={"FIPS": "Code"}, inplace=True)
   countries_df.rename(columns={"CurrencyName": "Currency_Name"}, inplace=True)
   countries_df = countries_df.fillna(0)
   return countries_df
+
+def get_indicators():
+  stats_df = join_csv()
+  income_dfs = read_xlsx()
+  income_list = []
+  for income_df in income_dfs:
+    income_list.append(list(set(income_df['Indicator']))[0])
+  indicators_list = list(stats_df.columns) + income_list
+  del indicators_list[0:2]
+  return indicators_list
+
+print(get_indicators())

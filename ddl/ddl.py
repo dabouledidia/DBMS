@@ -18,14 +18,14 @@ mycursor.execute("USE dbms")
 
 countries_table = '''CREATE TABLE Countries(
                 id INT NOT NULL AUTO_INCREMENT,
-                FIPS VARCHAR(10),
+                Code VARCHAR(10),
                 Display_Name VARCHAR(100),
                 Continent VARCHAR(100),
                 Currency_Name VARCHAR(100),
                 Area_SqKm INT,
                 Population INT,
                 PRIMARY KEY(id),
-                INDEX (FIPS))
+                INDEX (Code))
                 ENGINE = InnoDB'''
 
 
@@ -36,11 +36,20 @@ statistics_table = '''CREATE TABLE Statistics(
                 Indicator VARCHAR(100),
                 Value DOUBLE,
                 PRIMARY KEY(id),
-                FOREIGN KEY (`Country`) REFERENCES `Countries` (`FIPS`) ON DELETE CASCADE)
+                FOREIGN KEY (`Country`) REFERENCES `Countries` (`Code`) ON DELETE CASCADE,
+                FOREIGN KEY (`Indicator`) REFERENCES `Indicators` (`Name`) ON DELETE CASCADE)
+
                 ENGINE = InnoDB'''
 
+indicators_table = '''CREATE TABLE Indicators(
+                id INT NOT NULL AUTO_INCREMENT,
+                Name VARCHAR(100),
+                PRIMARY KEY(id),
+                Index(Name))
+                ENGINE = InnoDB'''
 
 mycursor.execute(countries_table)
+mycursor.execute(indicators_table)
 mycursor.execute(statistics_table)
 
 
@@ -56,9 +65,17 @@ for i,row in countries_df.iterrows():
 
 demographics_df = config.join_csv()
 final_income_dfs = config.read_xlsx()
+indicators_list = config.get_indicators()
 
 cols = list(demographics_df.columns)
 del cols[0:2]
+
+for indicator in indicators_list:
+
+    sql = "INSERT INTO Indicators (Name) VALUES (%s)"
+    vals = (indicator,)
+
+    mycursor.execute(sql, vals)
 
 for income_df in final_income_dfs:
     for index,row in income_df.iterrows():
@@ -66,6 +83,8 @@ for income_df in final_income_dfs:
       vals = (row[3],row[0],row[2],row[1])
       mycursor.execute(sql, vals)
       print(index)
+
+
 
 for index,row in demographics_df.iterrows():
   for col in cols:
@@ -75,6 +94,8 @@ for index,row in demographics_df.iterrows():
     vals = (row[0],row[1],col,row[col])
 
     mycursor.execute(sql, vals)
+
+
 
 mydb.commit()
 mydb.close()
