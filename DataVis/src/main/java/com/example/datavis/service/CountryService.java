@@ -10,7 +10,7 @@ public interface CountryService {
 
     public Country findById(int theId);
 
-    public Country findByCode(String theCode);
+//    public Country findByCode(String theCode);
 
-    public List<Country> getCountriesByStrings(List<String> countries);
+//    public List<Country> getCountriesByStrings(List<String> countries);
 }

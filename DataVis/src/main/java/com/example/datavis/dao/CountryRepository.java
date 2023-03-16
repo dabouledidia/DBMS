@@ -10,5 +10,4 @@ public interface CountryRepository extends JpaRepository<Country,Integer> {
 
     public Country findById(int Id);
 
-    public Country findByFIPS(String Code);
 }

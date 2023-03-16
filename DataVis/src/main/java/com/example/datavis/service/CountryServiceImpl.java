@@ -35,24 +35,25 @@ public class CountryServiceImpl implements CountryService {
             throw new RuntimeException("Did not find country with id: "+theId);
         }
     }
-
-    @Override
-    public Country findByCode(String theCode) {
-        Country result = countryRepository.findByFIPS(theCode);
-
-        if (result != null ) {
-            return result;
-        }
-        else {
-            throw new RuntimeException("Did not find country code - " + theCode);
-        }    }
-
-    @Override
-    public List<Country> getCountriesByStrings(List<String> countries) {
-        List<Country> countriesList = new ArrayList<>();
-
-        for(String country : countries) {
-            countriesList.add(this.findByCode(country));
-        }
-        return countriesList;    }
 }
+
+//    @Override
+//    public Country findByCode(String theCode) {
+//        Country result = countryRepository.findByCode(theCode);
+//
+//        if (result != null ) {
+//            return result;
+//        }
+//        else {
+//            throw new RuntimeException("Did not find country code - " + theCode);
+//        }    }
+
+//    @Override
+//    public List<Country> getCountriesByStrings(List<String> countries) {
+//        List<Country> countriesList = new ArrayList<>();
+//
+//        for(String country : countries) {
+//            countriesList.add(this.findByCode(country));
+//        }
+//        return countriesList;    }
+//}

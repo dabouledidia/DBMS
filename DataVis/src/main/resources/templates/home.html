@@ -28,6 +28,13 @@
     </ul>
 </div>
 
+<div id="indicator-data">
+    <ul class="indicator-list">
+        <li th:each="indicator : ${indicators}" th:text="${indicator.name}">Indicator</li>
+    </ul>
+</div>
+
+
 <!--<h1>Welcome to Stats Data Visualizer</h1>-->
 <!--<h3>We have data about the following stats names:</h3>-->
 <!--<div id="stats-data">-->

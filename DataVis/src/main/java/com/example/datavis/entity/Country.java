@@ -11,8 +11,8 @@ public class Country {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "FIPS")
-    private String FIPS;
+    @Column(name = "Code")
+    private String Code;
 
     @Column(name = "Display_Name")
     private String Name;
@@ -36,8 +36,8 @@ public class Country {
     public Country() {
     }
 
-    public Country(String FIPS, String name, String continent, String currency, int area, int population) {
-        this.FIPS = FIPS;
+    public Country(String Code, String name, String continent, String currency, int area, int population) {
+        this.Code = Code;
         Name = name;
         Continent = continent;
         Currency = currency;
@@ -45,9 +45,9 @@ public class Country {
         Population = population;
     }
 
-    public Country(Integer id, String FIPS, String name, String continent, String currency, int area, int population) {
+    public Country(Integer id, String Code, String name, String continent, String currency, int area, int population) {
         this.id = id;
-        this.FIPS = FIPS;
+        this.Code = Code;
         Name = name;
         Continent = continent;
         Currency = currency;
@@ -75,12 +75,12 @@ public class Country {
         this.id = id;
     }
 
-    public String getFIPS() {
-        return FIPS;
+    public String getCode() {
+        return Code;
     }
 
-    public void setFIPS(String FIPS) {
-        this.FIPS = FIPS;
+    public void setCode(String Code) {
+        this.Code = Code;
     }
 
     public String getName() {
@@ -112,7 +112,7 @@ public class Country {
     @Override
     public String toString() {
         return "Country{" +
-                "FIPS='" + FIPS + '\'' +
+                "Code='" + Code + '\'' +
                 ", Name='" + Name + '\'' +
                 ", Continent='" + Continent + '\'' +
                 ", Currency='" + Currency + '\'' +
