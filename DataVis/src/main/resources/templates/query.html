@@ -53,9 +53,19 @@
 
 
                     <p><strong>Select Country :</strong></p>
-                    <select class="form-select" th:field="*{country}">
-                        <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.name}">
+                    <select class="form-select" th:field="*{country}" multiple="multiple">
+                        <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
                     </select>
+
+                    <div class="form-group">
+                        <label for="startYear">Example textarea</label>
+                        <textarea class="form-control" id="startYear" rows="1"  th:field="*{startYear}"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endYear">Example textarea</label>
+                        <textarea class="form-control" id="endYear" rows="1" th:field="*{endYear}" ></textarea>
+                    </div>
 
                     <br>
                     <div class = "box-footer">

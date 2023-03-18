@@ -41,7 +41,21 @@
                 <span>Country:</span><span th:text="${option.country}"></span><br/>
                 <span>Indicator:</span><span th:text="${option.indicator}"></span><br/>
                 <span>Chart:</span><span th:text="${option.chart}"></span><br/>
+                <span>StartYear:</span><span th:text="${option.startYear}"></span><br/>
+                <span>EndYear:</span><span th:text="${option.endYear}"></span><br/>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class=" row">
+        <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <tr th:each="result: ${results}">
+                <td th:text="${result.code}" />
+                <td th:text="${result.indicator}" />
+                <td th:text="${result.value}" />
+            </tr>
         </div>
     </div>
 </div>

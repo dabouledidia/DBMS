@@ -13,72 +13,64 @@ public class Statistics {
     private int id;
 
     @Column(name = "Country")
-    private String FIPS;
+    private String code;
 
     @Column(name = "Year")
-    private int Year;
+    private int year;
 
     @Column(name = "Indicator")
-    private String Indicator;
+    private String indicator;
 
     @Column(name = "Value")
-    private double Value;
+    private double value;
 
     public Statistics() {
     }
 
-    public Integer getId() {
-        return id;
+    public Statistics(String code, int year, String indicator, double value) {
+        this.code = code;
+        this.year = year;
+        this.indicator = indicator;
+        this.value = value;
     }
 
-    public void setId(Integer id) {
+    public Statistics(int id, String code, int year, String indicator, double value) {
         this.id = id;
+        this.code = code;
+        this.year = year;
+        this.indicator = indicator;
+        this.value = value;
     }
 
-    public String getFIPS() {
-        return FIPS;
+    public String getCode() {
+        return code;
     }
 
-    public void setFIPS(String FIPS) {
-        this.FIPS = FIPS;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public int getYear() {
-        return Year;
+        return year;
     }
 
     public void setYear(int year) {
-        Year = year;
+        this.year = year;
     }
 
     public String getIndicator() {
-        return Indicator;
+        return indicator;
     }
 
     public void setIndicator(String indicator) {
-        Indicator = indicator;
+        this.indicator = indicator;
     }
 
     public double getValue() {
-        return Value;
+        return value;
     }
 
     public void setValue(double value) {
-        Value = value;
-    }
-
-    public Statistics(Integer id, String FIPS, int year, String indicator, double value) {
-        this.id = id;
-        this.FIPS = FIPS;
-        Year = year;
-        Indicator = indicator;
-        Value = value;
-    }
-
-    public Statistics(String FIPS, int year, String indicator, double value) {
-        this.FIPS = FIPS;
-        Year = year;
-        Indicator = indicator;
-        Value = value;
+        this.value = value;
     }
 }

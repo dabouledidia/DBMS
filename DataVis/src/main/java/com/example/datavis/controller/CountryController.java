@@ -1,6 +1,8 @@
 package com.example.datavis.controller;
+import com.example.datavis.dao.StatisticsRepository;
 import com.example.datavis.entity.Country;
 import com.example.datavis.entity.Options;
+import com.example.datavis.entity.Statistics;
 import com.example.datavis.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -19,7 +23,7 @@ public class CountryController {
     private IndicatorService indicatorService;
 
     @Autowired
-    private StatisticsService statisticsService;
+    private StatisticsRepository statisticsRepository;
 
     @GetMapping("/query")
     public String getQuery(Model model) {
@@ -36,8 +40,14 @@ public class CountryController {
     }
 
     @PostMapping("/query")
-    public String submitForm(@ModelAttribute("option") Options option) {
-        System.out.println(option);
+    public String submitForm(@ModelAttribute("option") Options option,Model model) {
+        System.out.println(option.getStartYear());
+
+        List<Statistics> results = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan
+                (option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+        System.out.println(results.get(0).getValue());
+        System.out.println(results.size());
+        model.addAttribute("results",results);
         return "charts";
     }
 }

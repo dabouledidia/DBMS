@@ -1,24 +1,30 @@
 package com.example.datavis.entity;
 
+import java.util.List;
+
 public class Options {
-    private String country;
+    private List<String> country;
     private String indicator;
     private String chart_Name;
+    private int startYear;
+    private int endYear;
+
+    public Options(List<String> country, String indicator, String chart_Name, int startYear, int endYear) {
+        this.country = country;
+        this.indicator = indicator;
+        this.chart_Name = chart_Name;
+        this.startYear = startYear;
+        this.endYear = endYear;
+    }
 
     public Options() {
     }
 
-    public Options(String country, String indicator, String chart) {
-        this.country = country;
-        this.indicator = indicator;
-        this.chart_Name = chart;
-    }
-
-    public String getCountry() {
+    public List<String> getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(List<String> country) {
         this.country = country;
     }
 
@@ -38,4 +44,19 @@ public class Options {
         this.chart_Name = chart;
     }
 
+    public int getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
+    }
+
+    public int getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
+    }
 }
