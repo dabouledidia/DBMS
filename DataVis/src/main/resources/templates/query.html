@@ -23,10 +23,10 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/query}">Create New Chart</a>
+                <a class="nav-link" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{#}">Placeholder</a>
+                <a class="nav-link" th:href="@{/query}">Create New Chart</a>
             </li>
         </ul>
         </ul>
@@ -58,13 +58,13 @@
                     </select>
 
                     <div class="form-group">
-                        <label for="startYear">Example textarea</label>
-                        <textarea class="form-control" id="startYear" rows="1"  th:field="*{startYear}"></textarea>
+                        <label for="startYear">Starting Year</label>
+                        <textarea class="form-control" id="startYear" rows="1"  th:field="*{startYear}" placeholder="1"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="endYear">Example textarea</label>
-                        <textarea class="form-control" id="endYear" rows="1" th:field="*{endYear}" ></textarea>
+                        <label for="endYear">Ending Year</label>
+                        <textarea class="form-control" id="endYear" rows="1" th:field="*{endYear}" placeholder="1"></textarea>
                     </div>
 
                     <br>

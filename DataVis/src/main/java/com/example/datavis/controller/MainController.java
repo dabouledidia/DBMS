@@ -1,6 +1,5 @@
 package com.example.datavis.controller;
 import com.example.datavis.dao.StatisticsRepository;
-import com.example.datavis.entity.Country;
 import com.example.datavis.entity.Options;
 import com.example.datavis.entity.Statistics;
 import com.example.datavis.service.*;
@@ -15,7 +14,7 @@ import java.util.List;
 
 
 @Controller
-public class CountryController {
+public class MainController {
     @Autowired
     private CountryService countryService;
 
@@ -24,6 +23,13 @@ public class CountryController {
 
     @Autowired
     private StatisticsRepository statisticsRepository;
+
+    @GetMapping("/")
+    public String home() {
+
+
+        return "home";
+    }
 
     @GetMapping("/query")
     public String getQuery(Model model) {
