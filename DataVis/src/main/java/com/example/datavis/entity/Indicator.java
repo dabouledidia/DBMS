@@ -11,33 +11,41 @@ public class Indicator {
     private int id;
 
     @Column(name = "Name")
-    private String Name;
+    private String name;
+
+    @Column(name = "Clean_Name")
+    private String clean_name;
 
     public Indicator() {
     }
 
-    public Indicator(String name) {
-        Name = name;
-    }
-
-    public Indicator(int id, String name) {
-        this.id = id;
-        Name = name;
+    public Indicator(String name, String clean_name) {
+        this.name = name;
+        this.clean_name = clean_name;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
+    }
+
+    public String getClean_name() {
+        return clean_name;
+    }
+
+    public void setClean_name(String clean_name) {
+        this.clean_name = clean_name;
     }
 
     @Override
     public String toString() {
         return "Indicator{" +
                 "id=" + id +
-                ", Name='" + Name + '\'' +
+                ", name='" + name + '\'' +
+                ", clean_name='" + clean_name + '\'' +
                 '}';
     }
 }

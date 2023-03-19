@@ -12,112 +12,94 @@ public class Country {
     private int id;
 
     @Column(name = "Code")
-    private String Code;
+    private String code;
 
     @Column(name = "Display_Name")
-    private String Name;
+    private String name;
 
     @Column(name = "Continent")
-    private String Continent;
+    private String continent;
 
     @Column(name = "Currency_Name")
-    private String Currency;
+    private String currency;
 
     @Column(name = "Area_Sqkm")
-    private int Area;
+    private int area;
 
     @Column(name = "Population")
-    private int Population;
+    private int population;
 
-    public Integer getArea() {
-        return Area;
-    }
 
     public Country() {
     }
 
-    public Country(String Code, String name, String continent, String currency, int area, int population) {
-        this.Code = Code;
-        Name = name;
-        Continent = continent;
-        Currency = currency;
-        Area = area;
-        Population = population;
-    }
-
-    public Country(Integer id, String Code, String name, String continent, String currency, int area, int population) {
-        this.id = id;
-        this.Code = Code;
-        Name = name;
-        Continent = continent;
-        Currency = currency;
-        Area = area;
-        Population = population;
-    }
-
-    public void setArea(Integer area) {
-        Area = area;
-    }
-
-    public Integer getPopulation() {
-        return Population;
-    }
-
-    public void setPopulation(Integer population) {
-        Population = population;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Country(String code, String name, String continent, String currency, int area, int population) {
+        this.code = code;
+        this.name = name;
+        this.continent = continent;
+        this.currency = currency;
+        this.area = area;
+        this.population = population;
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
-    public void setCode(String Code) {
-        this.Code = Code;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getContinent() {
-        return Continent;
+        return continent;
     }
 
     public void setContinent(String continent) {
-        Continent = continent;
+        this.continent = continent;
     }
 
     public String getCurrency() {
-        return Currency;
+        return currency;
     }
 
     public void setCurrency(String currency) {
-        Currency = currency;
+        this.currency = currency;
     }
 
+    public int getArea() {
+        return area;
+    }
 
+    public void setArea(int area) {
+        this.area = area;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
 
     @Override
     public String toString() {
         return "Country{" +
-                "Code='" + Code + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Continent='" + Continent + '\'' +
-                ", Currency='" + Currency + '\'' +
-                ", Area=" + Area +
-                ", Population=" + Population +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", currency='" + currency + '\'' +
+                ", area=" + area +
+                ", population=" + population +
                 '}';
     }
 }
