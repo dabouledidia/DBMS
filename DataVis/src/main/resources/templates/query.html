@@ -40,31 +40,31 @@
             <div class = "card-body">
                 <form th:action = "@{/query}" th:object = "${options}" method = "POST">
 
-                    <p><strong>Select Chart :</strong></p>
-                    <div class="selecotr-item" th:each="chart, iter : ${charts}" >
+                    <p><strong>Select Chart :</strong>
+                    <div class="selector-item" th:each="chart, iter : ${charts}" >
                         <input type="radio" th:id="radio+${iter.index}" th:field="*{chart}" class="selector-item_radio" name="chartType" th:value="${chart}" required th:checked="${iter.index} == 0" />
                         <label th:for="radio+${iter.index}" class="selector-item_label" th:text="${chart}"></label>
-                    </div>
+                    </div></p>
 
-                    <p><strong>Select Metrics :</strong></p>
+                    <p><strong>Select Metrics :</strong>
                     <select class="form-select" th:field="*{indicator}">
-                        <option th:each="indicator: ${indicators}" th:text="${indicator.name}" th:value = "${indicator.name}">
-                    </select>
+                        <option th:each="indicator: ${indicators}" th:text="${indicator.clean_name}" th:value = "${indicator.name}">
+                    </select></p>
 
 
                     <p><strong>Select Country :</strong></p>
                     <select class="form-select" th:field="*{country}" multiple="multiple">
                         <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
-                    </select>
+                    </select></p>
 
                     <div class="form-group">
-                        <label for="startYear">Starting Year</label>
-                        <textarea class="form-control" id="startYear" rows="1"  th:field="*{startYear}" placeholder="1"></textarea>
+                        <strong><label for="startYear">Starting Year</label></strong>
+                        <input type="number" min="1950" max="2050" class="form-control" id="startYear" th:field="*{startYear}" >
                     </div>
 
                     <div class="form-group">
-                        <label for="endYear">Ending Year</label>
-                        <textarea class="form-control" id="endYear" rows="1" th:field="*{endYear}" placeholder="1"></textarea>
+                        <strong><label for="endYear">Ending Year</label></strong>
+                        <input type="number" min="1950" max="2050" class="form-control" id="endYear" th:field="*{endYear}" >
                     </div>
 
                     <br>
