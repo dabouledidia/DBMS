@@ -44,6 +44,7 @@ statistics_table = '''CREATE TABLE Statistics(
 indicators_table = '''CREATE TABLE Indicators(
                 id INT NOT NULL AUTO_INCREMENT,
                 Name VARCHAR(100),
+                Clean_Name VARCHAR(100),
                 PRIMARY KEY(id),
                 Index(Name))
                 ENGINE = InnoDB'''
@@ -65,15 +66,15 @@ for i,row in countries_df.iterrows():
 
 demographics_df = config.join_csv()
 final_income_dfs = config.read_xlsx()
-indicators_list = config.get_indicators()
+indicators_list,indicators_list_clean = config.get_indicators()
 
 cols = list(demographics_df.columns)
 del cols[0:2]
 
-for indicator in indicators_list:
+for indicator in range(len(indicators_list)):
 
-    sql = "INSERT INTO Indicators (Name) VALUES (%s)"
-    vals = (indicator,)
+    sql = "INSERT INTO Indicators (Name,Clean_Name) VALUES (%s,%s)"
+    vals = (indicators_list[indicator],indicators_list_clean[indicator])
 
     mycursor.execute(sql, vals)
 

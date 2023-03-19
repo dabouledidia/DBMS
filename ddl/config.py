@@ -68,6 +68,14 @@ def get_indicators():
     income_list.append(list(set(income_df['Indicator']))[0])
   indicators_list = list(stats_df.columns) + income_list
   del indicators_list[0:2]
-  return indicators_list
+
+  indicators_list_cleaned = []
+  for ind in list(stats_df.columns):
+    ind_cleaned = ind.replace('_',' ')
+    indicators_list_cleaned.append(ind_cleaned.capitalize())
+  indicators_list_cleaned = indicators_list_cleaned+income_list
+  del indicators_list_cleaned[0:2]
+
+  return indicators_list,indicators_list_cleaned
 
 print(get_indicators())
