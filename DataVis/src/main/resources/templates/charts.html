@@ -12,7 +12,6 @@
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Chart Development System</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -26,7 +25,7 @@
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/query}">Create New Chart</a>
+                <a class="nav-link" th:href="@{/query}">Create new chart</a>
             </li>
         </ul>
         </ul>
@@ -37,12 +36,12 @@
     <div class = "row">
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <div align="center">
-                <h2>New Chart</h2>
-                <span>Country:</span><span th:text="${option.country}"></span><br/>
-                <span>Indicator:</span><span th:text="${option.indicator}"></span><br/>
-                <span>Chart:</span><span th:text="${option.chart}"></span><br/>
-                <span>StartYear:</span><span th:text="${option.startYear}"></span><br/>
-                <span>EndYear:</span><span th:text="${option.endYear}"></span><br/>
+                <h2> <strong> Customized chart </strong> </h2>
+                <span>Selected country/ies : </span><span th:text="${option.country}"></span><br/>
+                <span>Selected metric(s) : </span><span th:text="${option.indicator}"></span><br/>
+                <span>Chart type : </span><span th:text="${option.chart}"></span><br/>
+                <span>Start year : </span><span th:text="${option.startYear}"></span><br/>
+                <span>End year : </span><span th:text="${option.endYear}"></span><br/>
             </div>
         </div>
     </div>

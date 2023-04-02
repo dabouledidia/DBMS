@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Chart Development System</a>
+<!--    <a class="navbar-brand" href="#">Chart Development System</a>-->
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -25,9 +25,6 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/query}">Create New Chart</a>
-            </li>
         </ul>
         </ul>
     </div>
@@ -36,41 +33,41 @@
 <div class="container">
     <div class = "row">
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class = "text-center"> Create New Chart </h1>
+            <h1 class = "text-center"><strong> CREATE CHART </strong></h1>
             <div class = "card-body">
                 <form th:action = "@{/query}" th:object = "${options}" method = "POST">
 
-                    <p><strong>Select Chart :</strong>
+                    <p><strong>Select chart type :</strong>
                     <div class="selector-item" th:each="chart, iter : ${charts}" >
                         <input type="radio" th:id="radio+${iter.index}" th:field="*{chart}" class="selector-item_radio" name="chartType" th:value="${chart}" required th:checked="${iter.index} == 0" />
                         <label th:for="radio+${iter.index}" class="selector-item_label" th:text="${chart}"></label>
                     </div></p>
 
-                    <p><strong>Select Metrics :</strong>
+                    <p><strong>Select chart metrics :</strong>
                     <select class="form-select" th:field="*{indicator}">
                         <option th:each="indicator: ${indicators}" th:text="${indicator.clean_name}" th:value = "${indicator.name}">
                     </select></p>
 
 
-                    <p><strong>Select Country :</strong></p>
+                    <p><strong>Select countries :</strong></p>
                     <select class="form-select" th:field="*{country}" multiple="multiple">
                         <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
                     </select></p>
 
                     <div class="form-group">
-                        <strong><label for="startYear">Starting Year</label></strong>
+                        <strong><label for="startYear">From</label></strong>
                         <input type="number" min="1950" max="2050" class="form-control" id="startYear" th:field="*{startYear}" >
                     </div>
 
                     <div class="form-group">
-                        <strong><label for="endYear">Ending Year</label></strong>
+                        <strong><label for="endYear">Until</label></strong>
                         <input type="number" min="1950" max="2050" class="form-control" id="endYear" th:field="*{endYear}" >
                     </div>
 
                     <br>
                     <div class = "box-footer">
                         <button type = "submit" class = "btn btn-primary">
-                            Submit
+                            Export Chart
                         </button>
                     </div>
 

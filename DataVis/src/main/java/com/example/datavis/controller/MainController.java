@@ -26,8 +26,6 @@ public class MainController {
 
     @GetMapping("/")
     public String home() {
-
-
         return "home";
     }
 
@@ -37,7 +35,6 @@ public class MainController {
         String[] charts = {"barchart", "timeline", "scatter"};
         // This returns a JSON or XML with the users
         model.addAttribute("countries",countryService.findAll());
-
         model.addAttribute("indicators",indicatorService.findAll());
         model.addAttribute("options",options);
         model.addAttribute("charts", charts);
@@ -48,10 +45,10 @@ public class MainController {
     @PostMapping("/query")
     public String submitForm(@ModelAttribute("option") Options option,Model model) {
         System.out.println(option.getStartYear());
-
+        System.out.println(option.getEndYear());
         List<Statistics> results = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan
                 (option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
-        System.out.println(results.get(0).getValue());
+        System.out.println(results.get(93).getValue());
         System.out.println(results.size());
         model.addAttribute("results",results);
         return "charts";
