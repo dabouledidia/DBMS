@@ -37,37 +37,37 @@
             <div class = "card-body">
                 <form th:action = "@{/query}" th:object = "${options}" method = "POST">
 
-                    <p><strong>Select chart type :</strong>
+                    <p><strong>SELECT CHART TYPE :</strong>
                     <div class="selector-item" th:each="chart, iter : ${charts}" >
                         <input type="radio" th:id="radio+${iter.index}" th:field="*{chart}" class="selector-item_radio" name="chartType" th:value="${chart}" required th:checked="${iter.index} == 0" />
                         <label th:for="radio+${iter.index}" class="selector-item_label" th:text="${chart}"></label>
                     </div></p>
 
-                    <p><strong>Select chart metrics :</strong>
+                    <p><strong>SELECT CHART METRIC(S) :</strong>
                     <select class="form-select" th:field="*{indicator}">
                         <option th:each="indicator: ${indicators}" th:text="${indicator.clean_name}" th:value = "${indicator.name}">
                     </select></p>
 
 
-                    <p><strong>Select countries :</strong></p>
+                    <p><strong>SELECT COUNTRY/IES :</strong></p>
                     <select class="form-select" th:field="*{country}" multiple="multiple">
                         <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
                     </select></p>
 
                     <div class="form-group">
-                        <strong><label for="startYear">From</label></strong>
+                        <strong><label for="startYear">FROM YEAR</label></strong>
                         <input type="number" min="1950" max="2050" class="form-control" id="startYear" th:field="*{startYear}" >
                     </div>
 
                     <div class="form-group">
-                        <strong><label for="endYear">Until</label></strong>
+                        <strong><label for="endYear">UNTIL YEAR</label></strong>
                         <input type="number" min="1950" max="2050" class="form-control" id="endYear" th:field="*{endYear}" >
                     </div>
 
                     <br>
                     <div class = "box-footer">
                         <button type = "submit" class = "btn btn-primary">
-                            Export Chart
+                            EXPORT CHART
                         </button>
                     </div>
 
