@@ -48,41 +48,91 @@ public class MainController {
     }
 
 //    @PostMapping("/query")
-//    public String submitForm(@ModelAttribute("option") Options option, Statistics statistics, Model model) {
-//        System.out.println(option.getStartYear());
-//        System.out.println(option.getEndYear());
-//        List<Statistics> results = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan
-//                (option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
-//        System.out.println(results.size());
-//        model.addAttribute("results",results);
-//        return "charts";
+//    public ModelAndView chartForm(@ModelAttribute("option") Options option, Statistics statistics, ModelMap model) {
+//        int start = option.getStartYear();
+//        List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+//        System.out.println(stats.size());
+//        model.addAttribute("stats",stats);
+//        Map<Integer, Double> valuesAndYear= new HashMap<Integer, Double>();
+//        for (int i = 0; i < stats.size(); i++){
+//            valuesAndYear.put((i+start), stats.get(i).getValue());
+//        }
+//
+//        List<Integer> sortYear = new ArrayList<Integer>(valuesAndYear.keySet());
+//        Collections.sort(sortYear);
+//        String s = "key, value\n";
+//        for (Integer i : sortYear){
+//            Double v = valuesAndYear.get(i);
+//            s = s + i + ", " + v + "\n";
+//        }
+//
+//        String pageTitle = "Bar Chart";
+//
+//        JSONArray results = CDL.toJSONArray(s);
+//        model.addAttribute("dataMap", results);
+//        model.addAttribute("title", pageTitle);
+//        return new ModelAndView("scatter", model);
 //    }
-
 
     @PostMapping("/query")
     public ModelAndView chartForm(@ModelAttribute("option") Options option, Statistics statistics, ModelMap model) {
+
         int start = option.getStartYear();
+
         List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
-        System.out.println(stats.size());
         model.addAttribute("stats",stats);
-        Map<Integer, Double> valuesAndYear= new HashMap<Integer, Double>();
+        List<String> categs = new ArrayList<String>();
+
         for (int i = 0; i < stats.size(); i++){
-            valuesAndYear.put((i+start), stats.get(i).getValue());
+            if (!categs.contains(stats.get(i).getCode()) ){categs.add(stats.get(i).getCode());}
         }
 
-        List<Integer> sortYear = new ArrayList<Integer>(valuesAndYear.keySet());
-        Collections.sort(sortYear);
-        String s = "key, value\n";
-        for (Integer i : sortYear){
-            Double v = valuesAndYear.get(i);
-            s = s + i + ", " + v + "\n";
+        Map <String, Map<Integer, Double>> categories = new HashMap<>();
+        Map<Integer, Double> valuesAndYear= new HashMap<Integer, Double>();
+
+        for ( int j = 0; j < categs.size(); j++){
+            for (int i = 0; i < stats.size(); i++){
+                valuesAndYear.put((i+start), stats.get(i).getValue());
+            }
+
+            List<Integer> sortYear = new ArrayList<Integer>(valuesAndYear.keySet());
+            Collections.sort(sortYear);
+            String s = "key, value\n";
+            for (Integer i : sortYear){
+                Double v = valuesAndYear.get(i);
+                s = s + i + ", " + v + "\n";
+            }
+            categories.put(categs.get(j), valuesAndYear);
+
         }
 
-        String pageTitle = "Bar Chart";
+        List<String> sortCat = new ArrayList<String>(categories.keySet());
+        Collections.sort(sortCat);
+        String s = "[\r\n";
+        for (String i : sortCat) {
+            s += "{\r\n";
+            Map<Integer, Double> vals = categories.get(i);
+            s += "        \"categorie\": \"" + i + "\", \r\n";
+            s += "         \"values\": [\r\n";
+            for (Integer year : vals.keySet()) {
+                if (year != 1951){
+                s += "       {\r\n"
+                        + "            \"year\": " + "\"" + vals.get(year) + "\","
+                        + "\"val\": " + "\"" + year + "\"},";}
+                else{
+                    s += "       {\r\n"
+                            + "            \"year\": " + "\"" + vals.get(year) + "\","
+                            + "\"val\": " + "\"" + year + "\"}";
+                }
+            }
+            if( i != sortCat.get(1)) {s += "]\r\n},\r\n";}
+            else{s += "]\r\n}\r\n]";}
+        }
 
-        JSONArray results = CDL.toJSONArray(s);
-        model.addAttribute("dataMap", results);
-        model.addAttribute("title", pageTitle);
+
+        System.out.println(s);
+
+        model.addAttribute("dataMap", s);
         return new ModelAndView("barchart", model);
     }
 }

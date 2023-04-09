@@ -36,12 +36,12 @@
     <div class = "row">
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <div align="center">
-                <h2> <strong> Customized chart </strong> </h2>
-                <span>Selected country/ies : </span><span th:text="${option.country}"></span><br/>
-                <span>Selected metric(s) : </span><span th:text="${option.indicator}"></span><br/>
-                <span>Chart type : </span><span th:text="${option.chart}"></span><br/>
-                <span>Start year : </span><span th:text="${option.startYear}"></span><br/>
-                <span>End year : </span><span th:text="${option.endYear}"></span><br/>
+                <h2> <strong> CHART SELECTIONS </strong> </h2>
+                <span>SELECTED COUNTRY/IES : </span><span th:text="${option.country}"></span><br/>
+                <span>SELECTED METRIC(S) : </span><span th:text="${option.indicator}"></span><br/>
+                <span>CHART TYPE : </span><span th:text="${option.chart}"></span><br/>
+                <span>FROM YEAR : </span><span th:text="${option.startYear}"></span><br/>
+                <span>UNTIL YEAR : </span><span th:text="${option.endYear}"></span><br/>
             </div>
         </div>
     </div>
@@ -51,8 +51,8 @@
     <div class=" row">
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <tr th:each="result: ${results}">
-                <td th:text="${result.code}" />
-                <td th:text="${result.indicator}" />
+<!--                <td th:text="${result.code}" />-->
+<!--                <td th:text="${result.indicator}" />-->
                 <td th:text="${result.value}" />
             </tr>
         </div>
