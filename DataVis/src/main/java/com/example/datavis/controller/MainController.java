@@ -59,53 +59,72 @@ public class MainController {
             years.add(i.getYear());
         }
         Collections.sort(years);
+
         int max = Collections.max(years);
+
 
         // Add to the indicators list all the country codes the user selected.
         for (int i = 0; i < stats.size(); i++){
             if (!indicators.contains(stats.get(i).getCode()) ){indicators.add(stats.get(i).getCode());}
         }
 
-        // we will have a Map in the following format [indicator : { year(s) : value(s) }]
+
+        // we will have a Map in the following format [indicator : { year(s) : value(s) }] called categories
         Map<Integer, Double> valuesAndYear = new HashMap<Integer, Double>();
         Map <String, Map<Integer, Double>> categories = new HashMap<>();
 
 
         for ( int j = 0; j < indicators.size(); j++){
             for (int i = 0; i < stats.size(); i++){
-                valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
+                System.out.println(stats.get(i).getCode() + "    " + indicators.get(j));
+                if(stats.get(i).getCode().equals(indicators.get(j))){
+                    valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
+                }
             }
-            categories.put(indicators.get(j), valuesAndYear);
+            TreeMap<Integer, Double> sorted = new TreeMap<>();
+            sorted.putAll(valuesAndYear);
+            categories.put(indicators.get(j), sorted);
         }
 
         List<String> sortCat = new ArrayList<String>(categories.keySet());
         Collections.sort(sortCat);
         int sortcatMax = sortCat.size() - 1;
 
+
         // Creates JSON object like string to pass to d3
+
+
         String jsonString = "[\r\n";
+        System.out.println(sortCat);
         for (String i : sortCat) {
             jsonString += "{\r\n";
             Map<Integer, Double> vals = categories.get(i);
             jsonString += "        \"categorie\": \"" + i + "\", \r\n";
             jsonString += "         \"values\": [\r\n";
-            for (Integer year : vals.keySet()) {
+            for (Integer yearValue : vals.keySet()) {
 
-                if (year != max){
+
+                if (yearValue != max){
                     jsonString += "       {\r\n"
-                        + "            \"year\": " + "\"" + vals.get(year) + "\","
-                        + "\"val\": " + "\"" + year + "\"},";}
+                        + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
+                        + "\"rate\": " + "\"" + yearValue + "\"},";}
                 else{
                     jsonString += "       {\r\n"
-                            + "            \"year\": " + "\"" + vals.get(year) + "\","
-                            + "\"val\": " + "\"" + year + "\"}";
+                            + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
+                            + "\"rate\": " + "\"" + yearValue + "\"}";
                 }
+
             }
+
 
             if( i != sortCat.get(sortcatMax)) {jsonString += "]\r\n},\r\n";}
 
             else{jsonString += "]\r\n}\r\n]";}
+
+
         }
+
+
 
         model.addAttribute("dataMap", jsonString);
         return new ModelAndView("barchart", model);

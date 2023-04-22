@@ -61,7 +61,7 @@
             .orient("left");
 
         var color = d3.scale.ordinal()
-            .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"]);
+            .range(["yellow","red","blue","green","brown","purple","pink","gray","orange","indigo","violet"]);
 
         var svg = d3.select('body').append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -74,7 +74,7 @@
         data = JSON.parse(passedDataC);
 
         var categoriesNames = data.map(function(d) { return d.categorie; });
-        var rateNames = data[0].values.map(function(d) { return d.val; });
+        var rateNames = data[0].values.map(function(d) { return d.rate; });
 
         x0.domain(categoriesNames);
         x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()]);
@@ -109,15 +109,15 @@
             .data(function(d) { return d.values; })
             .enter().append("rect")
             .attr("width", x1.rangeBand())
-            .attr("x", function(d) { return x1(d.val); })
-            .style("fill", function(d) { return color(d.val) })
+            .attr("x", function(d) { return x1(d.rate); })
+            .style("fill", function(d) { return color(d.rate) })
             .attr("y", function(d) { return y(0); })
             .attr("height", function(d) { return height - y(0); })
             .on("mouseover", function(d) {
-                d3.select(this).style("fill", d3.rgb(color(d.val)).darker(2));
+                d3.select(this).style("fill", d3.rgb(color(d.rate)).darker(2));
             })
             .on("mouseout", function(d) {
-                d3.select(this).style("fill", color(d.val));
+                d3.select(this).style("fill", color(d.rate));
             });
 
         slice.selectAll("rect")
@@ -129,7 +129,7 @@
 
         //Legend
         var legend = svg.selectAll(".legend")
-            .data(data[0].values.map(function(d) { return d.val; }).reverse())
+            .data(data[0].values.map(function(d) { return d.rate; }).reverse())
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
