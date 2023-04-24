@@ -105,35 +105,32 @@
             .attr("class", "g")
             .attr("transform",function(d) { return "translate(" + x0(d.categorie) + ",0)"; });
 
-        slice.selectAll("rect")
+        slice.selectAll("circle")
             .data(function(d) { return d.values; })
-            .enter().append("rect")
-            .attr("width", x1.rangeBand())
-            .attr("x", function(d) { return x1(d.rate); })
+            .enter().append("circle")
+            .attr("cx", function(d) { return x1(d.rate) + x1.rangeBand() / 2; })
+            .attr("cy", function(d) { return y(d.value); })
+            .attr("r", 5)
             .style("fill", function(d) { return color(d.rate) })
-            .attr("y", function(d) { return y(0); })
-            .attr("height", function(d) { return height - y(0); })
             .on("mouseover", function(d) {
                 d3.select(this).style("fill", d3.rgb(color(d.rate)).darker(2));
-
             })
             .on("mouseout", function(d) {
                 d3.select(this).style("fill", color(d.rate));
             });
 
-        slice.selectAll("rect")
+        slice.selectAll("circle")
             .transition()
             .delay(function (d) {return Math.random()*1000;})
             .duration(1000)
-            .attr("y", function(d) { return y(d.value); })
-            .attr("height", function(d) { return height - y(d.value); });
+            .attr("cy", function(d) { return y(d.value); });
 
         //Legend
         var legend = svg.selectAll(".legend")
             .data(data[0].values.map(function(d) { return d.rate; }).reverse())
             .enter().append("g")
             .attr("class", "legend")
-            .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
+            .attr("transform", function(d,i) { return "translate(0," + i * 30 + ")"; })
             .style("opacity","0");
 
         legend.append("rect")
