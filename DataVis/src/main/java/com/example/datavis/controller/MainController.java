@@ -76,7 +76,6 @@ public class MainController {
 
         for ( int j = 0; j < indicators.size(); j++){
             for (int i = 0; i < stats.size(); i++){
-                System.out.println(stats.get(i).getCode() + "    " + indicators.get(j));
                 if(stats.get(i).getCode().equals(indicators.get(j))){
                     valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
                 }
@@ -93,14 +92,13 @@ public class MainController {
 
         // Creates JSON object like string to pass to d3
 
-
         String jsonString = "[\r\n";
-        System.out.println(sortCat);
         for (String i : sortCat) {
             jsonString += "{\r\n";
             Map<Integer, Double> vals = categories.get(i);
             jsonString += "        \"categorie\": \"" + i + "\", \r\n";
             jsonString += "         \"values\": [\r\n";
+            System.out.println(i);
             for (Integer yearValue : vals.keySet()) {
 
 
@@ -113,8 +111,10 @@ public class MainController {
                             + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
                             + "\"rate\": " + "\"" + yearValue + "\"}";
                 }
-
+            System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
             }
+
+
 
 
             if( i != sortCat.get(sortcatMax)) {jsonString += "]\r\n},\r\n";}
@@ -127,6 +127,6 @@ public class MainController {
 
 
         model.addAttribute("dataMap", jsonString);
-        return new ModelAndView("barchart", model);
+        return new ModelAndView((option.getChart()), model);
     }
 }
