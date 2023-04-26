@@ -50,7 +50,7 @@
 
 
                     <p><strong>SELECT COUNTRY/IES :</strong></p>
-                    <select class="form-select" th:field="*{country}" multiple="multiple">
+                    <select class="form-select" th:field="*{country}" multiple="multiple" required="required">
                         <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
                     </select></p>
 
