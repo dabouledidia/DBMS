@@ -56,12 +56,12 @@
 
                     <div class="form-group">
                         <strong><label for="startYear">FROM YEAR</label></strong>
-                        <input type="number" min="1950" max="2050" class="form-control" id="startYear" th:field="*{startYear}" >
+                        <input type="number" min="1950" max="2050" class="form-control" id="startYear" th:field="*{startYear}">
                     </div>
 
                     <div class="form-group">
                         <strong><label for="endYear">UNTIL YEAR</label></strong>
-                        <input type="number" min="1950" max="2050" class="form-control" id="endYear" th:field="*{endYear}" >
+                        <input type="number" min="1950" max="2050" class="form-control" id="endYear" th:field="*{endYear}">
                     </div>
 
                     <br>
@@ -77,4 +77,14 @@
     </div>
 </div>
 </body>
+
+<script>
+    var from = $("#startYear").val();
+    var to = $("#endYear").val();
+    console.log(from)
+    console.log(to)
+    if(Date.parse(from) > Date.parse(to)){
+        alert("Invalid Date Range");
+    }
+</script>
 </html>

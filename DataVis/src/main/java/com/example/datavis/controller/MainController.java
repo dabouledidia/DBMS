@@ -50,7 +50,15 @@ public class MainController {
     @PostMapping("/query")
     public ModelAndView chartForm(@ModelAttribute("option") Options option, Statistics statistics, ModelMap model) {
 
+        if(option.getStartYear()> option.getEndYear())
+        {
+            return new ModelAndView("error_year",model);
+        }
         List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+        if(stats.isEmpty())
+        {
+            return new ModelAndView("error_stats",model);
+        }
         model.addAttribute("stats",stats);
         List<String> indicators = new ArrayList<String>();
 
