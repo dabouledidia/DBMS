@@ -16,6 +16,7 @@ import java.util.*;
 import org.json.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -52,7 +53,8 @@ public class MainController {
 
         if(option.getStartYear()> option.getEndYear())
         {
-            return new ModelAndView("error_year",model);
+               return new ModelAndView("error_year",model);
+//            return new ModelAndView("redirect:/",model);
         }
         List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
         if(stats.isEmpty())
