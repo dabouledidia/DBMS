@@ -30,6 +30,8 @@ public class MainController {
     @Autowired
     private StatisticsRepository statisticsRepository;
 
+    @Autowired
+    private StatisticsServiceImpl statisticsService;
     @GetMapping("/")
     public String home() {
         return "home";
@@ -58,9 +60,9 @@ public class MainController {
         }
         List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
 
-        List<Statistics> statsByFive = statisticsRepository.findAggregatedByFive();
-        List<Statistics> statsByTen = statisticsRepository.findAggregatedByTen();
+        List<Statistics> statsByFive = statisticsService.filterByCountry(statisticsRepository.findAggregatedByFive(),option.getCountry(),option.getIndicator());
 
+        List<Statistics> statsByTen = statisticsService.filterByCountry(statisticsRepository.findAggregatedByTen(),option.getCountry(),option.getIndicator());
 
         if(stats.isEmpty())
         {

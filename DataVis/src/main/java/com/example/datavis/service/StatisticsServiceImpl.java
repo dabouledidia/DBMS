@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StatisticsServiceImpl implements StatisticsService{
@@ -47,5 +48,13 @@ public class StatisticsServiceImpl implements StatisticsService{
         Collections.sort(years);
 
         return years;
+    }
+
+    @Override
+    public List<Statistics> filterByCountry(List<Statistics> stats,List<String> code,String indicator)
+    {
+        return stats.stream()
+                .filter(stat -> code.contains(stat.getCode()) && indicator.equals(stat.getIndicator()))
+                .collect(Collectors.toList());
     }
 }
