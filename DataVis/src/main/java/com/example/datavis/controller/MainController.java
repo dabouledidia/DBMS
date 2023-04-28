@@ -57,6 +57,11 @@ public class MainController {
 //            return new ModelAndView("redirect:/",model);
         }
         List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+
+        List<Statistics> statsByFive = statisticsRepository.findAggregatedByFive();
+        List<Statistics> statsByTen = statisticsRepository.findAggregatedByTen();
+
+
         if(stats.isEmpty())
         {
             return new ModelAndView("error_stats",model);
