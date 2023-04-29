@@ -13,12 +13,12 @@ public interface StatisticsRepository extends JpaRepository<Statistics,Integer> 
 
     public List<Statistics> findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(List<String> countryCode,String indicatorCode,int startYear,int endYear);
 
-    String aggregateByFive = "SELECT id,Country,sum(Value) as Value,Year,Indicator FROM dbms.statistics group by Indicator,Country, YEAR DIV 5";
+    String aggregateByFive = "SELECT id,Country,avg(Value) as Value,Year,Indicator FROM dbms.statistics group by Indicator,Country, YEAR DIV 5";
 
     @Query(value = aggregateByFive, nativeQuery = true)
     public List<Statistics> findAggregatedByFive();
 
-    String aggregateByTen = "SELECT id,Country,sum(Value) as Value,Year,Indicator FROM dbms.statistics group by Indicator,Country, YEAR DIV 10";
+    String aggregateByTen = "SELECT id,Country,avg(Value) as Value,Year,Indicator FROM dbms.statistics group by Indicator,Country, YEAR DIV 10";
 
     @Query(value = aggregateByTen, nativeQuery = true)
     public List<Statistics> findAggregatedByTen();

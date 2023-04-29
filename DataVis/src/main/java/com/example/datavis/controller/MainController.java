@@ -41,7 +41,7 @@ public class MainController {
     public String getQuery(Model model) {
         Options options = new Options();
         String[] charts = {"barchart", "timeline", "scatter"};
-        String[] yearType = {"aggregateBy5", "aggregateBy10", "selectSpecific"};
+        String[] yearType = {"Aggregate by 5 years", "Aggregate by 10 years", "Aggregate by year"};
         // This returns a JSON or XML with the users
         model.addAttribute("countries",countryService.findAll());
         model.addAttribute("indicators",indicatorService.findAll());
@@ -59,15 +59,15 @@ public class MainController {
 
         List<Statistics> stats = new ArrayList<>();
 
-        if(option.getYearType().equals("aggregateBy5"))
+        if(option.getYearType().equals("Aggregate by 5 years"))
         {
             stats = statisticsService.filterByCountry(statisticsRepository.findAggregatedByFive(),option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
         }
-        if(option.getYearType().equals("aggregateBy10"))
+        if(option.getYearType().equals("Aggregate by 10 years"))
         {
             stats = statisticsService.filterByCountry(statisticsRepository.findAggregatedByTen(),option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
         }
-        if(option.getYearType().equals("selectSpecific"))
+        if(option.getYearType().equals("Aggregate by year"))
         {
             stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
             if(option.getStartYear()> option.getEndYear())

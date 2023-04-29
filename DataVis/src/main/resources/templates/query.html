@@ -54,7 +54,7 @@
                         <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
                     </select></p>
 
-                    <p><strong>SELECT Y TYPE :</strong></p>
+                    <p><strong>SELECT AGGREGATION TYPE :</strong></p>
                     <div th:each="item : ${yearType}">
                         <input type="radio" th:field="*{yearType}" th:value="${item}"/>
                         <label th:for="${item}" th:text="${item}"></label>
