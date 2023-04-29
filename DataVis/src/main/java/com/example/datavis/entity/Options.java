@@ -9,12 +9,15 @@ public class Options {
     private int startYear;
     private int endYear;
 
-    public Options(List<String> country, String indicator, String chart_Name, int startYear, int endYear) {
+    private String yearType;
+
+    public Options(List<String> country, String indicator, String chart_Name, int startYear, int endYear, String yearType) {
         this.country = country;
         this.indicator = indicator;
         this.chart_Name = chart_Name;
         this.startYear = startYear;
         this.endYear = endYear;
+        this.yearType = yearType;
     }
 
     public Options() {
@@ -58,5 +61,13 @@ public class Options {
 
     public void setEndYear(int endYear) {
         this.endYear = endYear;
+    }
+
+    public String getYearType() {
+        return yearType;
+    }
+
+    public void setYearType(String yearType) {
+        this.yearType = yearType;
     }
 }

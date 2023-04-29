@@ -41,11 +41,13 @@ public class MainController {
     public String getQuery(Model model) {
         Options options = new Options();
         String[] charts = {"barchart", "timeline", "scatter"};
+        String[] yearType = {"aggregateBy5", "aggregateBy10", "selectSpecific"};
         // This returns a JSON or XML with the users
         model.addAttribute("countries",countryService.findAll());
         model.addAttribute("indicators",indicatorService.findAll());
         model.addAttribute("options",options);
         model.addAttribute("charts", charts);
+        model.addAttribute("yearType", yearType);
 
         return "query";
     }
@@ -53,16 +55,30 @@ public class MainController {
     @PostMapping("/query")
     public ModelAndView chartForm(@ModelAttribute("option") Options option, Statistics statistics, ModelMap model) {
 
-        if(option.getStartYear()> option.getEndYear())
+
+
+        List<Statistics> stats = new ArrayList<>();
+
+        if(option.getYearType().equals("aggregateBy5"))
         {
-               return new ModelAndView("error_year",model);
-//            return new ModelAndView("redirect:/",model);
+            stats = statisticsService.filterByCountry(statisticsRepository.findAggregatedByFive(),option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
         }
-        List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+        if(option.getYearType().equals("aggregateBy10"))
+        {
+            stats = statisticsService.filterByCountry(statisticsRepository.findAggregatedByTen(),option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+        }
+        if(option.getYearType().equals("selectSpecific"))
+        {
+            stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+            if(option.getStartYear()> option.getEndYear())
+            {
+                return new ModelAndView("error_year",model);
+//            return new ModelAndView("redirect:/",model);
+            }
 
-        List<Statistics> statsByFive = statisticsService.filterByCountry(statisticsRepository.findAggregatedByFive(),option.getCountry(),option.getIndicator());
+        }
 
-        List<Statistics> statsByTen = statisticsService.filterByCountry(statisticsRepository.findAggregatedByTen(),option.getCountry(),option.getIndicator());
+
 
         if(stats.isEmpty())
         {
