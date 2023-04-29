@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"><html lang="en">
+<head>
+    <title>CSV to D3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link   href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <style>
+        body {
+            font: 10px sans-serif;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+        .x.axis path {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body  th:with="dataGiven=${dataMap}" >
+<div class="container mt-3">
+    <h1>Bar Chart </h1>
+</div>
+<div class="container mt-3">
+    <!-- We assign a hidden object to hold the pass variable. This allows client-side js, later, to use it -->
+    <input type="hidden" id="vrblId" name="vrblName" value="placeholder" th:value="${dataGiven}" />
+
+    <div id=debug>
+        <p> The given data generate the following chart. </p>
+        <!--        <p><span th:text="${dataGiven}"></span></p>-->
+    </div>
+    <script>
+        var margin = {top: 10, right: 50, bottom: 50, left: 50},
+            width = 1300 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var x0 = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+        var x1 = d3.scale.ordinal();
+
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x0)
+            .tickSize(0)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+        var color = d3.scale.ordinal()
+            .range(["yellow","red", "salmon", "lightsalmon", "darksalmon", "khaki", "moccasin","blue","lightgray", "darkgray", "lightblue", "powderblue", "limegreen", "forestgreen", "darkgreen","green","brown","purple","pink","gray","orange","indigo","violet"]);
+
+        var svg = d3.select('body').append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+        var passedDataC = document.getElementById('vrblId').value;
+        data = JSON.parse(passedDataC);
+
+        var categoriesNames = data.map(function(d) { return d.categorie; });
+        var rateNames = data[0].values.map(function(d) { return d.rate; });
+
+        let allValues = [];
+
+        data.forEach(function(category) {
+            category.values.forEach(function(value) {
+                allValues.push(value.value);
+            });
+        });
+
+        console.log(allValues);
+
+        var intAllValues = allValues.map(function(value) {
+            return parseInt(value);
+        });
+
+        console.log(intAllValues);
+
+        let maxValue = Math.max(...intAllValues)
+
+        console.log(maxValue)
+
+        x0.domain(categoriesNames);
+        x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()]);
+        y.domain([0, (maxValue+2)]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .style('opacity','0')
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .style('font-weight','bold')
+            .text("values");
+
+        svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
+
+        var line = d3.svg.line()
+            .x(function(d) { return x1(d.rate) + x1.rangeBand() / 2; })
+            .y(function(d) { return y(d.value); });
+
+        var slice = svg.selectAll(".slice")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "g")
+            .attr("transform",function(d) { return "translate(" + x0(d.categorie) + ",0)"; });
+
+        slice.selectAll("circle")
+            .transition()
+            .delay(function (d) {return Math.random()*1000;})
+            .duration(1000)
+            .attr("cy", function(d) { return y(d.value); });
+
+        slice.append("path")
+            .attr("class", "line")
+            .attr("d", function(d) { return line(d.values); })
+            .style("stroke", function(d) { return color(d.categorie); })
+            .style("stroke-width", "2px")
+            .style("fill", "none");
+
+        var legend = svg.selectAll(".legend")
+            .data(rateNames.slice())
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+        legend.append("circle")
+            .attr("cx", width - 20)
+            .attr("cy", 10)
+            .attr("r", 5)
+            .style("fill", color);
+
+        legend.append("text")
+            .attr("x", width - 26)
+            .attr("y", 10)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d; });
+
+        legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
+
+    </script>
+</div>
+</body>
+</html>
