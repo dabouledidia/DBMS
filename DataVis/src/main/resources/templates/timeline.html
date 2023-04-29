@@ -28,7 +28,7 @@
 
 <body  th:with="dataGiven=${dataMap}" >
 <div class="container mt-3">
-    <h1>Bar Chart </h1>
+    <h1>Timeline Chart </h1>
 </div>
 <div class="container mt-3">
     <!-- We assign a hidden object to hold the pass variable. This allows client-side js, later, to use it -->
@@ -96,8 +96,8 @@
 
         console.log(maxValue)
 
-        x0.domain(categoriesNames);
-        x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()]);
+        x0.domain(rateNames);
+        x1.domain(categoriesNames).rangeRoundBands([0, x0.rangeBand()]);
         y.domain([0, (maxValue+2)]);
 
         svg.append("g")
@@ -120,14 +120,14 @@
         svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
 
         var line = d3.svg.line()
-            .x(function(d) { return x1(d.rate) + x1.rangeBand() / 2; })
+            .x(function(d) { return x0(d.rate) + x0.rangeBand() / 2; })
             .y(function(d) { return y(d.value); });
 
         var slice = svg.selectAll(".slice")
             .data(data)
             .enter().append("g")
             .attr("class", "g")
-            .attr("transform",function(d) { return "translate(" + x0(d.categorie) + ",0)"; });
+            .attr("transform",function(d) { return "translate(" + x1(d.categorie) + ",0)"; });
 
         slice.selectAll("circle")
             .transition()
@@ -143,23 +143,23 @@
             .style("fill", "none");
 
         var legend = svg.selectAll(".legend")
-            .data(rateNames.slice())
+            .data(categoriesNames.slice())
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-        legend.append("circle")
-            .attr("cx", width - 20)
-            .attr("cy", 10)
-            .attr("r", 5)
-            .style("fill", color);
+        legend.append("rect")
+            .attr("x", width + 16)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", function(d) { return color(d); });
 
         legend.append("text")
-            .attr("x", width - 26)
-            .attr("y", 10)
+            .attr("x", width + 10)
+            .attr("y", 9)
             .attr("dy", ".35em")
             .style("text-anchor", "end")
-            .text(function(d) { return d; });
+            .text(function(d) {return d; });
 
         legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
 
