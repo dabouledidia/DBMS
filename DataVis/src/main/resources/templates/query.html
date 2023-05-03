@@ -56,7 +56,7 @@
 
                     <p><strong>SELECT AGGREGATION TYPE :</strong></p>
                     <div th:each="item : ${yearType}">
-                        <input type="radio" th:field="*{yearType}" th:value="${item}"/>
+                        <input type="radio" th:field="*{yearType}" required th:value="${item}"/>
                         <label th:for="${item}" th:text="${item}"></label>
                     </div>
 
@@ -68,10 +68,19 @@
 
                     <div id="div2" class="form-group">
                         <strong><label for="endYear">UNTIL YEAR</label></strong>
-                        <input type="number" min="1950" max="2050" class="form-control" id="endYear" th:field="*{endYear}" required>
+                        <input type="number" min="" max="2050" class="form-control" id="endYear" th:field="*{endYear}" required>
                     </div>
 
+                    <script>
+                        const minValueInput = document.getElementById("startYear");
+                        const maxValueInput = document.getElementById("endYear");
+
+                        minValueInput.addEventListener("input", function() {
+                            maxValueInput.min = this.value;
+                        });
+                    </script>
                     <br>
+
                     <div class = "box-footer">
                         <button type = "submit" class = "btn btn-primary">
                             EXPORT CHART
@@ -80,7 +89,6 @@
 
                 </form>
             </div>
-
         </div>
     </div>
 </div>

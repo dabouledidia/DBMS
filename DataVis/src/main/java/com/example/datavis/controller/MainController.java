@@ -70,21 +70,15 @@ public class MainController {
         if(option.getYearType().equals("Aggregate by year"))
         {
             stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
-            if(option.getStartYear()> option.getEndYear())
-            {
-                return new ModelAndView("error_year",model);
-//            return new ModelAndView("redirect:/",model);
-            }
-
         }
 
-
+        model.addAttribute("stats",stats);
 
         if(stats.isEmpty())
         {
             return new ModelAndView("error_stats",model);
         }
-        model.addAttribute("stats",stats);
+
         List<String> indicators = new ArrayList<String>();
 
         List<Integer> years = new ArrayList<>();
