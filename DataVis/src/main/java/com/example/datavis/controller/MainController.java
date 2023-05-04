@@ -72,10 +72,10 @@ public class MainController {
             stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(), option.getIndicator(), option.getStartYear(), option.getEndYear());
 
         }
-        for(Statistics s:stats)
-        {
-            System.out.println(s.getCode()+" "+s.getIndicator()+" "+s.getYear()+" "+s.getValue());
-        }
+//        for(Statistics s:stats)
+//        {
+//            System.out.println(s.getCode()+" "+s.getIndicator()+" "+s.getYear()+" "+s.getValue());
+//        }
 
         model.addAttribute("stats",stats);
 
@@ -105,17 +105,25 @@ public class MainController {
         Map<Integer, Double> valuesAndYear = new HashMap<Integer, Double>();
         Map <String, Map<Integer, Double>> categories = new HashMap<>();
 
+        System.out.println(indicators);
 
         for ( int j = 0; j < indicators.size(); j++){
             for (int i = 0; i < stats.size(); i++){
                 if(stats.get(i).getCode().equals(indicators.get(j))){
                     valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
+                    System.out.println(stats.get(i).getYear() + "  " + stats.get(i).getValue());
                 }
             }
+
             TreeMap<Integer, Double> sorted = new TreeMap<>();
             sorted.putAll(valuesAndYear);
+            System.out.println(sorted + "1");
+            System.out.println(indicators.get(j) + "  " + sorted);
             categories.put(indicators.get(j), sorted);
+
         }
+
+
 
         List<String> sortCat = new ArrayList<String>(categories.keySet());
         Collections.sort(sortCat);
@@ -155,8 +163,6 @@ public class MainController {
 
 
         }
-
-
 
         model.addAttribute("dataMap", jsonString);
         return new ModelAndView((option.getChart()), model);

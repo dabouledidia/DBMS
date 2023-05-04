@@ -74,7 +74,17 @@
         data = JSON.parse(passedDataC);
 
         var categoriesNames = data.map(function(d) { return d.categorie; });
-        var rateNames = data[0].values.map(function(d) { return d.rate; });
+
+        baseVal = data[0].values.length
+        pos = 0
+        for ( let i = 0; i < categoriesNames.length; i++){
+            if (data[i].values.length > baseVal){
+                baseVal = data[i].values.length
+                pos = i
+            }
+        }
+
+        var rateNames = data[pos].values.map(function(d) { return d.rate; });
 
         let allValues = [];
 
