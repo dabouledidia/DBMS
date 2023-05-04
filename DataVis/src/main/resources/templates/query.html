@@ -44,7 +44,7 @@
                     </div></p>
 
                     <p><strong>SELECT CHART METRIC(S) :</strong>
-                    <select class="form-select" th:field="*{indicator}" multiple="multiple" required="required">
+                    <select class="form-select" th:field="*{indicator}" required="required">
                         <option th:each="indicator: ${indicators}" th:text="${indicator.clean_name}" th:value = "${indicator.name}">
                     </select></p>
 

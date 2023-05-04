@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Options {
     private List<String> country;
-    private List<String> indicator;
+    private String indicator;
     private String chart_Name;
     private int startYear;
     private int endYear;
 
     private String yearType;
 
-    public Options(List<String> country, List<String> indicator, String chart_Name, int startYear, int endYear, String yearType) {
+    public Options(List<String> country, String indicator, String chart_Name, int startYear, int endYear, String yearType) {
         this.country = country;
         this.indicator = indicator;
         this.chart_Name = chart_Name;
@@ -31,11 +31,11 @@ public class Options {
         this.country = country;
     }
 
-    public List<String> getIndicator() {
+    public String getIndicator() {
         return indicator;
     }
 
-    public void setIndicator(List<String> indicator) {
+    public void setIndicator(String indicator) {
         this.indicator = indicator;
     }
 

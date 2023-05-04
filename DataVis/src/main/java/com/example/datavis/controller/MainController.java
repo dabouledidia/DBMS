@@ -69,7 +69,12 @@ public class MainController {
         }
         if(option.getYearType().equals("Aggregate by year"))
         {
-            stats = statisticsRepository.findByCodeInAndIndicatorInAndYearGreaterThanAndYearLessThan(option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+            stats = statisticsRepository.findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(option.getCountry(), option.getIndicator(), option.getStartYear(), option.getEndYear());
+
+        }
+        for(Statistics s:stats)
+        {
+            System.out.println(s.getCode()+" "+s.getIndicator()+" "+s.getYear()+" "+s.getValue());
         }
 
         model.addAttribute("stats",stats);
