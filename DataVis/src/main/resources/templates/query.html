@@ -44,7 +44,7 @@
                     </div></p>
 
                     <p><strong>SELECT CHART METRIC(S) :</strong>
-                    <select class="form-select" th:field="*{indicator}">
+                    <select class="form-select" th:field="*{indicator}" multiple="multiple" required="required">
                         <option th:each="indicator: ${indicators}" th:text="${indicator.clean_name}" th:value = "${indicator.name}">
                     </select></p>
 
@@ -56,7 +56,7 @@
 
                     <p><strong>SELECT AGGREGATION TYPE :</strong></p>
                     <div th:each="item : ${yearType}">
-                        <input type="radio" th:field="*{yearType}" required th:value="${item}"/>
+                        <input type="radio" th:field="*{yearType}"  required th:value="${item}"/>
                         <label th:for="${item}" th:text="${item}"></label>
                     </div>
 

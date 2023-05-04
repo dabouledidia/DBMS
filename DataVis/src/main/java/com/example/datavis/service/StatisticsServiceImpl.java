@@ -51,10 +51,10 @@ public class StatisticsServiceImpl implements StatisticsService{
     }
 
     @Override
-    public List<Statistics> filterByCountry(List<Statistics> stats,List<String> code,String indicator,int startYear,int endYear)
+    public List<Statistics> filterByCountry(List<Statistics> stats,List<String> code,List<String> indicator,int startYear,int endYear)
     {
         return stats.stream()
-                .filter(stat -> code.contains(stat.getCode()) && indicator.equals(stat.getIndicator()) && startYear<= stat.getYear() && endYear >= stat.getYear())
+                .filter(stat -> code.contains(stat.getCode()) && indicator.contains(stat.getIndicator()) && startYear<= stat.getYear() && endYear >= stat.getYear())
                 .collect(Collectors.toList());
     }
 }

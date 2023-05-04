@@ -82,6 +82,8 @@ for income_df in final_income_dfs:
     for index,row in income_df.iterrows():
       sql = "INSERT INTO Statistics (Country, Year, Indicator, Value) VALUES (%s, %s, %s, %s)"
       vals = (row[3],row[0],row[2],row[1])
+      if -1 in vals:
+       continue
       mycursor.execute(sql, vals)
       print(index)
 
@@ -93,6 +95,8 @@ for index,row in demographics_df.iterrows():
 
     sql = "INSERT INTO Statistics (Country, Year, Indicator, Value) VALUES (%s, %s, %s, %s)"
     vals = (row[0],row[1],col,row[col])
+    if -1 in vals:
+       continue
 
     mycursor.execute(sql, vals)
 
