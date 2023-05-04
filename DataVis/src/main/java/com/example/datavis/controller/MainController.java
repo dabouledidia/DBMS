@@ -111,12 +111,13 @@ public class MainController {
             for (int i = 0; i < stats.size(); i++){
                 if(stats.get(i).getCode().equals(indicators.get(j))){
                     valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
-                    System.out.println(stats.get(i).getYear() + "  " + stats.get(i).getValue());
+                    System.out.println(valuesAndYear);
                 }
             }
 
             TreeMap<Integer, Double> sorted = new TreeMap<>();
             sorted.putAll(valuesAndYear);
+            valuesAndYear.clear();
             System.out.println(sorted + "1");
             System.out.println(indicators.get(j) + "  " + sorted);
             categories.put(indicators.get(j), sorted);
