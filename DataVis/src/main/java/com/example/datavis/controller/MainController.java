@@ -69,7 +69,7 @@ public class MainController {
         }
         if(option.getYearType().equals("Aggregate by year"))
         {
-            stats = statisticsRepository.findByCodeInAndIndicatorInAndYearGreaterThanAndYearLessThan(option.getCountry(), option.getIndicator(), option.getStartYear(), option.getEndYear());
+            stats = statisticsRepository.findByCodeInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(option.getCountry(), option.getIndicator(), option.getStartYear(), option.getEndYear());
 
         }
 //        for(Statistics s:stats)

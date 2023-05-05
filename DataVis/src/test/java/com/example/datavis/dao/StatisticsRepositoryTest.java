@@ -27,7 +27,7 @@ public class StatisticsRepositoryTest {
         List<String> indicators = new ArrayList<>();
         indicators.add("crude_birth_rate");
 
-        List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorInAndYearGreaterThanAndYearLessThan(countries,indicators,1990,1992);
+        List<Statistics> stats = statisticsRepository.findByCodeInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(countries,indicators,1991,1991);
 
         List<Statistics> expected_stats = new ArrayList<>();
 
