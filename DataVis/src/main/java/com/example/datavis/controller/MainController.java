@@ -58,24 +58,22 @@ public class MainController {
 
 
         List<Statistics> stats = new ArrayList<>();
-
+        int agg = 0;
         if(option.getYearType().equals("Aggregate by 5 years"))
         {
             stats = statisticsService.filterByCountry(statisticsRepository.findAggregatedByFive(),option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+            agg = 5;
         }
         if(option.getYearType().equals("Aggregate by 10 years"))
         {
             stats = statisticsService.filterByCountry(statisticsRepository.findAggregatedByTen(),option.getCountry(),option.getIndicator(), option.getStartYear(),option.getEndYear());
+            agg = 10;
         }
         if(option.getYearType().equals("Aggregate by year"))
         {
             stats = statisticsRepository.findByCodeInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(option.getCountry(), option.getIndicator(), option.getStartYear(), option.getEndYear());
 
         }
-//        for(Statistics s:stats)
-//        {
-//            System.out.println(s.getCode()+" "+s.getIndicator()+" "+s.getYear()+" "+s.getValue());
-//        }
 
         model.addAttribute("stats",stats);
 
@@ -85,6 +83,7 @@ public class MainController {
         }
 
         List<String> indicators = new ArrayList<String>();
+        List<String> indicatorsMetrics = new ArrayList<String>();
 
         List<Integer> years = new ArrayList<>();
         for (Statistics i : stats){
@@ -98,8 +97,10 @@ public class MainController {
         // Add to the indicators list all the country codes the user selected.
         for (int i = 0; i < stats.size(); i++){
             if (!indicators.contains(stats.get(i).getCode()) ){indicators.add(stats.get(i).getCode());}
+            if (!indicatorsMetrics.contains(stats.get(i).getIndicator()) ){indicatorsMetrics.add(stats.get(i).getIndicator());}
         }
 
+        System.out.println(indicatorsMetrics);
 
         // we will have a Map in the following format [indicator : { year(s) : value(s) }] called categories
         Map<Integer, Double> valuesAndYear = new HashMap<Integer, Double>();
@@ -108,19 +109,18 @@ public class MainController {
         System.out.println(indicators);
 
         for ( int j = 0; j < indicators.size(); j++){
-            for (int i = 0; i < stats.size(); i++){
-                if(stats.get(i).getCode().equals(indicators.get(j))){
-                    valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
-                    System.out.println(valuesAndYear);
-                }
-            }
+            for ( int k = 0; k < indicatorsMetrics.size(); k++) {
+                for (int i = 0; i < stats.size(); i++) {
+                    if ((stats.get(i).getCode().equals(indicators.get(j))) && stats.get(i).getIndicator().equals(indicatorsMetrics.get(k))) {
+                        valuesAndYear.put(stats.get(i).getYear(), stats.get(i).getValue());
 
-            TreeMap<Integer, Double> sorted = new TreeMap<>();
-            sorted.putAll(valuesAndYear);
-            valuesAndYear.clear();
-            System.out.println(sorted + "1");
-            System.out.println(indicators.get(j) + "  " + sorted);
-            categories.put(indicators.get(j), sorted);
+                    }
+                }
+                TreeMap<Integer, Double> sorted = new TreeMap<>();
+                sorted.putAll(valuesAndYear);
+                valuesAndYear.clear();
+                categories.put(indicators.get(j) + " (" + indicatorsMetrics.get(k) + ")", sorted);
+            }
 
         }
 
@@ -140,30 +140,52 @@ public class MainController {
             jsonString += "        \"categorie\": \"" + i + "\", \r\n";
             jsonString += "         \"values\": [\r\n";
             System.out.println(i);
-            for (Integer yearValue : vals.keySet()) {
+            if (agg != 0) {
+                for (Integer yearValue : vals.keySet()) {
 
 
-                if (yearValue != max){
-                    jsonString += "       {\r\n"
-                        + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
-                        + "\"rate\": " + "\"" + yearValue + "\"},";}
-                else{
-                    jsonString += "       {\r\n"
-                            + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
-                            + "\"rate\": " + "\"" + yearValue + "\"}";
+                    if (yearValue != max) {
+                        jsonString += "       {\r\n"
+                                + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
+                                + "\"rate\": " + "\"" + (yearValue - agg) + "-" + (yearValue) + "\"},";
+                    } else {
+                        jsonString += "       {\r\n"
+                                + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
+                                + "\"rate\": " + "\"" + (yearValue - agg) + "-" + (yearValue) + "\"}";
+                    }
+                    System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
                 }
-            System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
+                if (i != sortCat.get(sortcatMax)) {
+                    jsonString += "]\r\n},\r\n";
+                } else {
+                    jsonString += "]\r\n}\r\n]";
+                }
+
+
+            } else {
+                for (Integer yearValue : vals.keySet()) {
+
+
+                    if (yearValue != max) {
+                        jsonString += "       {\r\n"
+                                + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
+                                + "\"rate\": " + "\"" + yearValue + "\"},";
+                    } else {
+                        jsonString += "       {\r\n"
+                                + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
+                                + "\"rate\": " + "\"" + (yearValue) + "\"}";
+                    }
+                    System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
+                }
+                if (i != sortCat.get(sortcatMax)) {
+                    jsonString += "]\r\n},\r\n";
+                } else {
+                    jsonString += "]\r\n}\r\n]";
+                }
+
             }
-
-
-
-
-            if( i != sortCat.get(sortcatMax)) {jsonString += "]\r\n},\r\n";}
-
-            else{jsonString += "]\r\n}\r\n]";}
-
-
         }
+
 
         model.addAttribute("dataMap", jsonString);
         return new ModelAndView((option.getChart()), model);
