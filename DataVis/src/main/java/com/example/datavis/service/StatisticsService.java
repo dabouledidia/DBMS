@@ -10,7 +10,6 @@ public interface StatisticsService {
 
     public Statistics findById(int theId);
 
-    public List<Integer> getYearsList(List<Statistics> stats);
 
     public List<Statistics> filterByCountry(List<Statistics> stats,List<String> code,List<String> indicator,int startYear,int endYear);
 }

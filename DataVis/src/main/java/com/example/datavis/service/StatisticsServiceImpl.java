@@ -36,27 +36,9 @@ public class StatisticsServiceImpl implements StatisticsService{
         }
     }
 
-
-    @Override
-    public List<Integer> getYearsList(List<Statistics> stats) {
-        List<Integer> years = new ArrayList<>();
-        for(Statistics statistic : stats) {
-            if(!years.contains(statistic.getYear())) {
-                years.add(statistic.getYear());
-            }
-        }
-        Collections.sort(years);
-
-        return years;
-    }
-
     @Override
     public List<Statistics> filterByCountry(List<Statistics> stats,List<String> code,List<String> indicator,int startYear,int endYear)
     {
-        for(Statistics s:stats)
-        {
-            System.out.println(s.getCode()+s.getIndicator()+s.getYear()+s.getValue());
-        }
         return stats.stream()
                 .filter(stat -> code.contains(stat.getCode()) && indicator.contains(stat.getIndicator()) && startYear<= stat.getYear() && endYear >= stat.getYear())
                 .collect(Collectors.toList());
