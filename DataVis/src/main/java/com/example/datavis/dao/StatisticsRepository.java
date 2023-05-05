@@ -11,7 +11,7 @@ public interface StatisticsRepository extends JpaRepository<Statistics,Integer> 
 
     public Statistics findById(int Id);
 
-    public List<Statistics> findByCodeInAndIndicatorAndYearGreaterThanAndYearLessThan(List<String> countryCode,String indicatorCode,int startYear,int endYear);
+    public List<Statistics> findByCodeInAndIndicatorInAndYearGreaterThanAndYearLessThan(List<String> countryCode,List<String> indicatorCode,int startYear,int endYear);
 
     String aggregateByFive = "SELECT id,Country,avg(Value) as Value,Year,Indicator FROM dbms.statistics group by Indicator,Country, YEAR DIV 5";
 

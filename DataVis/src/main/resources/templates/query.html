@@ -37,22 +37,22 @@
             <div class = "card-body">
                 <form th:action = "@{/query}" th:object = "${options}" method = "POST">
 
-                    <p><strong>SELECT CHART TYPE :</strong>
+                    <p><strong>SELECT CHART TYPE :</strong></p>
                     <div class="selector-item" th:each="chart, iter : ${charts}" >
                         <input type="radio" th:id="radio+${iter.index}" th:field="*{chart}" class="selector-item_radio" name="chartType" th:value="${chart}" required th:checked="${iter.index} == 0" />
                         <label th:for="radio+${iter.index}" class="selector-item_label" th:text="${chart}"></label>
-                    </div></p>
+                    </div>
 
-                    <p><strong>SELECT CHART METRIC(S) :</strong>
-                    <select class="form-select" th:field="*{indicator}" required="required">
+                    <p><strong>SELECT CHART METRIC(S) :</strong></p>
+                    <select class="form-select" th:field="*{indicator}" multiple="multiple" required="required">
                         <option th:each="indicator: ${indicators}" th:text="${indicator.clean_name}" th:value = "${indicator.name}">
-                    </select></p>
+                    </select>
 
 
                     <p><strong>SELECT COUNTRY/IES :</strong></p>
                     <select class="form-select" th:field="*{country}" multiple="multiple" required="required">
                         <option th:each="country: ${countries}" th:text="${country.name}" th:value = "${country.code}">
-                    </select></p>
+                    </select>
 
                     <p><strong>SELECT AGGREGATION TYPE :</strong></p>
                     <div th:each="item : ${yearType}">
