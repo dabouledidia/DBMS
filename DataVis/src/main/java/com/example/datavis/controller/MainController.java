@@ -147,13 +147,14 @@ public class MainController {
                     if (yearValue != max) {
                         jsonString += "       {\r\n"
                                 + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
-                                + "\"rate\": " + "\"" + (yearValue - agg) + "-" + (yearValue) + "\"},";
+                                + "\"rate\": " + "\"" + (yearValue - agg + 1) + "\"},";
                     } else {
                         jsonString += "       {\r\n"
                                 + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
-                                + "\"rate\": " + "\"" + (yearValue - agg) + "-" + (yearValue) + "\"}";
+                                + "\"rate\": " + "\"" + (yearValue) + "\"}";
                     }
                     System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
+
                 }
                 if (i != sortCat.get(sortcatMax)) {
                     jsonString += "]\r\n},\r\n";
@@ -164,8 +165,6 @@ public class MainController {
 
             } else {
                 for (Integer yearValue : vals.keySet()) {
-
-
                     if (yearValue != max) {
                         jsonString += "       {\r\n"
                                 + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
@@ -176,6 +175,7 @@ public class MainController {
                                 + "\"rate\": " + "\"" + (yearValue) + "\"}";
                     }
                     System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
+
                 }
                 if (i != sortCat.get(sortcatMax)) {
                     jsonString += "]\r\n},\r\n";

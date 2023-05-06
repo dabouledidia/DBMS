@@ -61,7 +61,7 @@
             .orient("left");
 
         var color = d3.scale.ordinal()
-            .range(["yellow","red", "salmon", "lightsalmon", "darksalmon", "khaki", "moccasin","blue","lightgray", "darkgray", "lightblue", "powderblue", "limegreen", "forestgreen", "darkgreen","green","brown","purple","pink","gray","orange","indigo","violet"]);
+            .range(["yellow","red", "salmon", "khaki", "blue", "darkgray", "lightblue", "powderblue", "limegreen", "forestgreen", "darkgreen","green","brown","purple","pink","gray","orange","indigo","violet"]);
 
         var svg = d3.select('body').append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -93,12 +93,13 @@
         console.log(intAllValues);
 
         let maxValue = Math.max(...intAllValues)
+        let minValue = Math.min(...intAllValues)
 
         console.log(maxValue)
 
         x0.domain(rateNames);
         x1.domain(categoriesNames).rangeRoundBands([0, x0.rangeBand()]);
-        y.domain([0, (maxValue+2)]);
+        y.domain([(minValue -2), (maxValue+2)]);
 
         svg.append("g")
             .attr("class", "x axis")
