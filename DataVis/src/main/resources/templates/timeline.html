@@ -95,11 +95,16 @@
         let maxValue = Math.max(...intAllValues)
         let minValue = Math.min(...intAllValues)
 
-        console.log(maxValue)
+        console.log(minValue)
 
         x0.domain(rateNames);
         x1.domain(categoriesNames).rangeRoundBands([0, x0.rangeBand()]);
-        y.domain([(minValue -2), (maxValue+2)]);
+        if (minValue > 0){
+            y.domain([0, (maxValue+2)]);
+        }
+        else{
+            y.domain([minValue-2, (maxValue+2)]);
+        }
 
         svg.append("g")
             .attr("class", "x axis")
