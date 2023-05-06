@@ -60,9 +60,6 @@
             .scale(y)
             .orient("left");
 
-        var color = d3.scale.ordinal()
-            .range(["yellow","red", "salmon", "lightsalmon", "darksalmon", "khaki", "moccasin","blue","lightgray", "darkgray", "lightblue", "powderblue", "limegreen", "forestgreen", "darkgreen","green","brown","purple","pink","gray","orange","indigo","violet"]);
-
         var svg = d3.select('body').append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -74,7 +71,22 @@
         data = JSON.parse(passedDataC);
 
         var categoriesNames = data.map(function(d) { return d.categorie; });
-        var rateNames = data[0].values.map(function(d) { return d.rate; });
+
+        var color = d3.scale.ordinal()
+            .domain(categoriesNames)
+            .range(["yellow","red", "salmon", "lightsalmon", "darksalmon", "khaki", "moccasin","blue","lightgray", "darkgray", "lightblue", "powderblue", "limegreen", "forestgreen", "darkgreen","green","brown","purple","pink","gray","orange","indigo","violet"]);
+
+
+        baseVal = data[0].values.length
+        pos = 0
+        for ( let i = 0; i < categoriesNames.length; i++){
+            if (data[i].values.length > baseVal){
+                baseVal = data[i].values.length
+                pos = i
+            }
+        }
+
+        var rateNames = data[pos].values.map(function(d) { return d.rate; });
 
         let allValues = [];
 
@@ -93,12 +105,18 @@
         console.log(intAllValues);
 
         let maxValue = Math.max(...intAllValues)
+        let minValue = Math.min(...intAllValues)
 
-        console.log(maxValue)
+        console.log(minValue)
 
-        x0.domain(categoriesNames);
-        x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()]);
-        y.domain([0, (maxValue+2)]);
+        x0.domain(rateNames);
+        x1.domain(categoriesNames).rangeRoundBands([0, x0.rangeBand()]);
+        if (minValue > 0){
+            y.domain([0, (maxValue+2)]);
+        }
+        else{
+            y.domain([minValue-2, (maxValue+2)]);
+        }
 
         svg.append("g")
             .attr("class", "x axis")
@@ -123,15 +141,16 @@
             .data(data)
             .enter().append("g")
             .attr("class", "g")
-            .attr("transform",function(d) { return "translate(" + x0(d.categorie) + ",0)"; });
+            .attr("transform",function(d) { return "translate(" + x1(d.categorie) + ",0)"; })
+            .style("fill", function(d) { return color(d.categorie) });
 
-        slice.selectAll("circle")
+        var circles = slice.selectAll("circle")
             .data(function(d) { return d.values; })
             .enter().append("circle")
-            .attr("cx", function(d) { return x1(d.rate) + x1.rangeBand() / 2; })
+            .attr("cx", function(d) { return x0(d.rate) + x0.rangeBand() / 2; })
             .attr("cy", function(d) { return y(d.value); })
             .attr("r", 5)
-            .style("fill", function(d) { return color(d.rate) })
+
             .on("mouseover", function(d) {
                 d3.select(this).style("fill", d3.rgb(color(d.rate)).darker(2));
             })
@@ -139,25 +158,27 @@
                 d3.select(this).style("fill", color(d.rate));
             });
 
-        slice.selectAll("circle")
-            .transition()
+        circles.transition()
             .delay(function (d) {return Math.random()*1000;})
             .duration(1000)
             .attr("cy", function(d) { return y(d.value); });
 
+
         //Legend
         var legend = svg.selectAll(".legend")
-            .data(data[0].values.map(function(d) { return d.rate; }).reverse())
+            .data(categoriesNames.slice())
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d,i) { return "translate(0," + i * 30 + ")"; })
             .style("opacity","0");
 
+
         legend.append("rect")
             .attr("x", width + 16)
             .attr("width", 18)
             .attr("height", 18)
-            .style("fill", function(d) { return color(d); });
+            .style("fill", function(d) { return color(d) });
+
 
         legend.append("text")
             .attr("x", width + 10)
