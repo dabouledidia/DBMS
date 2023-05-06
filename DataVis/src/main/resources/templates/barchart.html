@@ -167,7 +167,7 @@
 
         //Legend
         var legend = svg.selectAll(".legend")
-            .data(data[0].values.map(function(d) { return d.rate; }).reverse())
+            .data(rateNames.slice())
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })

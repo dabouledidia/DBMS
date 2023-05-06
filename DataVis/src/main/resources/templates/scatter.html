@@ -73,7 +73,6 @@
         var categoriesNames = data.map(function(d) { return d.categorie; });
 
         var color = d3.scale.ordinal()
-            .domain(categoriesNames)
             .range(["yellow","red", "salmon", "lightsalmon", "darksalmon", "khaki", "moccasin","blue","lightgray", "darkgray", "lightblue", "powderblue", "limegreen", "forestgreen", "darkgreen","green","brown","purple","pink","gray","orange","indigo","violet"]);
 
 
@@ -110,7 +109,7 @@
         console.log(minValue)
 
         x0.domain(rateNames);
-        x1.domain(categoriesNames).rangeRoundBands([0, x0.rangeBand()]);
+        x1.domain(categoriesNames).rangeRoundBands([0, 0]);
         if (minValue > 0){
             y.domain([0, (maxValue+2)]);
         }
@@ -142,21 +141,20 @@
             .enter().append("g")
             .attr("class", "g")
             .attr("transform",function(d) { return "translate(" + x1(d.categorie) + ",0)"; })
-            .style("fill", function(d) { return color(d.categorie) });
+            .style("fill", function(d) { return color(d.categorie) })
+            .on("mouseover", function(d) {
+                d3.select(this).style("fill", d3.rgb(color(d.categorie)).darker(2));
+            })
+            .on("mouseout", function(d) {
+                d3.select(this).style("fill", color(d.categorie));
+            });
 
         var circles = slice.selectAll("circle")
             .data(function(d) { return d.values; })
             .enter().append("circle")
             .attr("cx", function(d) { return x0(d.rate) + x0.rangeBand() / 2; })
             .attr("cy", function(d) { return y(d.value); })
-            .attr("r", 5)
-
-            .on("mouseover", function(d) {
-                d3.select(this).style("fill", d3.rgb(color(d.rate)).darker(2));
-            })
-            .on("mouseout", function(d) {
-                d3.select(this).style("fill", color(d.rate));
-            });
+            .attr("r", 5);
 
         circles.transition()
             .delay(function (d) {return Math.random()*1000;})
