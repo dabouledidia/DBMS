@@ -91,7 +91,6 @@ public class MainController {
         }
         Collections.sort(years);
 
-        int max = Collections.max(years);
 
 
         // Add to the indicators list all the country codes the user selected.
@@ -101,6 +100,7 @@ public class MainController {
         }
 
         System.out.println(indicatorsMetrics);
+
 
         // we will have a Map in the following format [indicator : { year(s) : value(s) }] called categories
         Map<Integer, Double> valuesAndYear = new HashMap<Integer, Double>();
@@ -137,9 +137,12 @@ public class MainController {
         for (String i : sortCat) {
             jsonString += "{\r\n";
             Map<Integer, Double> vals = categories.get(i);
+            int max = 0;
+            for (Integer yearValue : vals.keySet()) {
+                max = yearValue;
+            }
             jsonString += "        \"categorie\": \"" + i + "\", \r\n";
             jsonString += "         \"values\": [\r\n";
-            System.out.println(i);
             if (agg != 0) {
                 for (Integer yearValue : vals.keySet()) {
 
@@ -156,6 +159,7 @@ public class MainController {
                     System.out.println(categories.get(i).get(yearValue) + " " + yearValue);
 
                 }
+
                 if (i != sortCat.get(sortcatMax)) {
                     jsonString += "]\r\n},\r\n";
                 } else {
@@ -165,6 +169,7 @@ public class MainController {
 
             } else {
                 for (Integer yearValue : vals.keySet()) {
+
                     if (yearValue != max) {
                         jsonString += "       {\r\n"
                                 + "            \"value\": " + "\"" + categories.get(i).get(yearValue) + "\","
@@ -185,7 +190,7 @@ public class MainController {
 
             }
         }
-
+        System.out.println(jsonString);
 
         model.addAttribute("dataMap", jsonString);
         return new ModelAndView((option.getChart()), model);
